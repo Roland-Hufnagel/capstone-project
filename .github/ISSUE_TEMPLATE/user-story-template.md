@@ -7,9 +7,9 @@ assignees: ''
 
 ---
 
-Value Proposition
+## Value Proposition
 As a < type of user >, I want < some goal > so that < some reason >.
-Discription
+Description
 // Insert Wire Frame
 ## Acception Criteria
 - [ ] Actual functionality of feature
