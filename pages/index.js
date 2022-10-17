@@ -22,4 +22,5 @@ const MyDiv=styled.div`
 width: 200px;
 height: 200px;
 color: blue;
+border: 1px solid black;
 `;
