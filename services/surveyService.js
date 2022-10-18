@@ -17,7 +17,7 @@ const surveys=[
 ]
 
 
-export async function getSurveyById(id){
+export  function getSurveyById(id){
     const survey = surveys.find((survey)=>survey.id == id);
     return survey;
 }

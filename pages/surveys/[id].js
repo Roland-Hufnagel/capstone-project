@@ -5,7 +5,7 @@ import { useRouter } from "next/router";
 
 export async function getServerSideProps(context) {
   const { id } = context.params;
-  const survey = await getSurveyById(id);
+  const survey = getSurveyById(id);
   return {
     props: {
       ...survey,
@@ -26,9 +26,11 @@ export default function Survey({ id, title, questions }) {
   return (
     <StyledForm onSubmit={handleSubmit}>
       <h1>{title}</h1>
-      {questions.map((question, index) => {
-        return <QuestionCard key={index} question={question} />;
-      })}
+      <ul>
+        {questions.map((question, index) => (
+          <QuestionCard key={index} question={question} />
+        ))}
+      </ul>
       <button type="submit">Submit</button>
     </StyledForm>
   );
@@ -42,6 +44,11 @@ const StyledForm = styled.form`
   }
   & button {
     width: 100%;
-    font-size: 1.2em;
+    font-size: 1em;
+    border-radius: 0.3em;
+    padding: 0.3em;
+  }
+  & ul {
+    all: unset;
   }
 `;

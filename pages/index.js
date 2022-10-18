@@ -1,6 +1,4 @@
 import Head from "next/head";
-import styled from "styled-components";
-import QuestionCard from "../components/QuestionCard";
 
 export default function Home() {
   return (
@@ -13,7 +11,6 @@ export default function Home() {
 
       <main>
         <h1>My App</h1>
-        
       </main>
     </div>
   );

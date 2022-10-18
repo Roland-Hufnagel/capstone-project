@@ -2,16 +2,16 @@ import styled from "styled-components";
 
 export default function Thankyou() {
   return (
-    <StyledDiv>
-      <div>Thank you for your feedback</div>
-    </StyledDiv>
+    <StyledSection>
+      <p>Thank you for your feedback</p>
+    </StyledSection>
   );
 }
 
-const StyledDiv = styled.div`
+const StyledSection = styled.section`
   text-align: center;
   margin: 20px auto;
-  & div{
+  & p{
     max-width: 600px;
     margin: 0 auto;
     border-radius: 1em;
