@@ -1,5 +1,6 @@
 import Head from "next/head";
 import styled from "styled-components";
+import QuestionCard from "../components/QuestionCard";
 
 export default function Home() {
   return (
@@ -18,9 +19,9 @@ export default function Home() {
   );
 }
 
-const MyDiv=styled.div`
-width: 200px;
-height: 200px;
-color: blue;
-border: 1px solid black;
+const MyDiv = styled.div`
+  width: 200px;
+  height: 200px;
+  color: blue;
+  border: 1px solid black;
 `;
