@@ -28,7 +28,7 @@ export default function Survey({ id, title, questions }) {
       <h1>{title}</h1>
       <ul>
         {questions.map((question, index) => (
-          <QuestionCard key={index} question={question} />
+          <QuestionCard key={index} index={index} question={question} />
         ))}
       </ul>
       <button type="submit">Submit</button>

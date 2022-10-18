@@ -1,14 +1,12 @@
 import styled from "styled-components";
 
-export default function QuestionCard({ question }) {
+export default function QuestionCard({ question, index }) {
   return (
     <StyledQuestionCard>
       <fieldset>
         <legend>{question}</legend>
-        <input type="radio" id="yes" name={question} value="Yes" />
-        <label htmlFor="yes">Yes</label>
-        <input type="radio" id="no" name={question} value="No" />
-        <label htmlFor="no">No</label>
+        <label><input type="radio" name={question} value="Yes" />Yes</label>
+        <label><input type="radio" name={question} value="No" />No</label>
       </fieldset>
     </StyledQuestionCard>
   );
