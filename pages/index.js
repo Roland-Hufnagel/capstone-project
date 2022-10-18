@@ -13,15 +13,10 @@ export default function Home() {
 
       <main>
         <h1>My App</h1>
-        <MyDiv>Welcome World</MyDiv>
+        
       </main>
     </div>
   );
 }
 
-const MyDiv = styled.div`
-  width: 200px;
-  height: 200px;
-  color: blue;
-  border: 1px solid black;
-`;
+
