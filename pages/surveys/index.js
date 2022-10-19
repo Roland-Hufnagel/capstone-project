@@ -9,7 +9,7 @@ export default function Surveys() {
     <>
       <StyledSurveyList>
         {surveys.map((survey, index) => (
-          <SurveyCard key={index} title={survey.title} date={survey.date} />
+          <SurveyCard key={index} title={survey.title} date={survey.date} id={survey.id}/>
         ))}
       </StyledSurveyList>
     </>
