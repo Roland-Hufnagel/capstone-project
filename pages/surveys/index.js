@@ -4,7 +4,6 @@ import styled from "styled-components";
 
 export default function Surveys() {
   const surveys = getAllSurveys();
-  console.log(surveys);
   return (
     <>
       <StyledSurveyList>

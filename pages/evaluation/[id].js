@@ -18,7 +18,7 @@ export default function Evaluation({ id, date, title, questions }) {
     <StyledEvaluation>
       <h1>{title}</h1>
       <p>{date}</p>
-      <p>{id}</p>
+      
       <StyledEvaluationList>
         {questions.map((question, index) => (
           <EvaluationCard
