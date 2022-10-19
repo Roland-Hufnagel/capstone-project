@@ -13,7 +13,7 @@ export async function getServerSideProps(context) {
   };
 }
 
-export default function Survey({ id, title, questions }) {
+export default function Survey({ title, questions }) {
   const router = useRouter();
 
   function handleSubmit(event) {
@@ -28,7 +28,7 @@ export default function Survey({ id, title, questions }) {
       <h1>{title}</h1>
       <ul>
         {questions.map((question, index) => (
-          <QuestionCard key={index} index={index} question={question} />
+          <QuestionCard key={index} index={index} question={question.title} />
         ))}
       </ul>
       <button type="submit">Submit</button>
