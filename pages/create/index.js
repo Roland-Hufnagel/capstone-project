@@ -33,9 +33,9 @@ export default function CreateSurvey() {
   return (
     <Container>
       <h1>Create your personal survey:</h1>
-
       <form onSubmit={handleSubmit}>
-        <AddButton onClick={handleAdd} />
+        <input type="text" name="title" placeholder="your title" style={{width: "100%"}}/><hr/>
+        <AddButton onClick={handleAdd} /> 
         {inputFields.map((inputField, index) => (
           <MyWrapper key={index}>
             <input
@@ -75,13 +75,7 @@ export default function CreateSurvey() {
 const MyWrapper = styled.div`
   display: grid;
   gap: 10px;
-  grid-template-columns: 9fr auto;
-  & input {
-    border: 1px solid #ccc;
-    padding: 0.7em;
-    font-size: 1rem;
-    border-radius: 0.5em;
-  }
+  grid-template-columns: 9fr auto;  
   & input[type="radio"] {
     margin-left: 20px;
     margin-right: 10px;
@@ -96,6 +90,12 @@ const Container = styled.main`
   align-items: stretch;
   & h1 {
     text-align: center;
+  }
+  & input {
+    border: 1px solid #ccc;
+    padding: 0.7em;
+    font-size: 1rem;
+    border-radius: 0.5em;
   }
 `;
 const MyBox = styled.fieldset`
