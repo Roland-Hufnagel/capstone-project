@@ -3,7 +3,7 @@ import { BiMessageSquareAdd } from "react-icons/bi";
 
 export default function AddButton({ onClick }) {
   return (
-    <MyButton onClick={onClick}>
+    <MyButton type="button" onClick={onClick}>
       <MyIcon />
     </MyButton>
   );

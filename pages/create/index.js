@@ -20,6 +20,7 @@ export default function CreateSurvey() {
 
   function handleSubmit(event) {
     event.preventDefault();
+    console.log("in handleSubmit");
     router.push("../surveys/");
   }
 
@@ -75,7 +76,7 @@ export default function CreateSurvey() {
           </MyWrapper>
         ))}
         <hr />
-        <SubmitButton type="submit">Save</SubmitButton>
+        <SubmitButton type="submit" >Save</SubmitButton>
       </form>
     </Container>
   );
