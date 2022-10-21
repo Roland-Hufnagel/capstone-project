@@ -76,7 +76,7 @@ export default function CreateSurvey() {
           </MyWrapper>
         ))}
         <hr />
-        <SubmitButton type="submit" >Save</SubmitButton>
+        <SubmitButton type="submit">Save</SubmitButton>
       </form>
     </Container>
   );
