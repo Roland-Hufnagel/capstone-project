@@ -10,12 +10,13 @@ export default function Thankyou() {
 
 const StyledSection = styled.section`
   text-align: center;
-  margin: 20px auto;
+  padding: 10px;
   & p{
     max-width: 600px;
     margin: 0 auto;
     border-radius: 1em;
     font-size: 3em;
     border: 2px solid black;
+    padding: 20px;
   }
 `;
