@@ -1,10 +1,11 @@
 import { useState } from "react";
-
+import { useRouter } from "next/router";
 import styled from "styled-components";
 import AddButton from "../../components/Buttons/AddButton";
 import DeleteButton from "../../components/Buttons/DeleteButton";
 
 export default function CreateSurvey() {
+  const router = useRouter();
   const [inputFields, setInputFields] = useState([
     {
       question: "",
@@ -19,6 +20,7 @@ export default function CreateSurvey() {
 
   function handleSubmit(event) {
     event.preventDefault();
+    router.push("../surveys/");
   }
 
   function handleDelete(index) {
