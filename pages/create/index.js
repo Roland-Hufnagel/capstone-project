@@ -20,7 +20,7 @@ export default function CreateSurvey() {
   function handleSubmit(event) {
     event.preventDefault();
   }
-  
+
   function handleDelete(index) {
     const values = [...inputFields];
     values.splice(index, 1);
@@ -34,8 +34,14 @@ export default function CreateSurvey() {
     <Container>
       <h1>Create your personal survey:</h1>
       <form onSubmit={handleSubmit}>
-        <input type="text" name="title" placeholder="your title" style={{width: "100%"}}/><hr/>
-        <AddButton onClick={handleAdd} /> 
+        <input
+          type="text"
+          name="title"
+          placeholder="your title"
+          style={{ width: "100%" }}
+        />
+        <hr />
+        <AddButton onClick={handleAdd} />
         {inputFields.map((inputField, index) => (
           <MyWrapper key={index}>
             <input
@@ -65,17 +71,18 @@ export default function CreateSurvey() {
               No
             </MyBox>
           </MyWrapper>
-        ))}<hr/>
+        ))}
+        <hr />
         <SubmitButton type="submit">Save</SubmitButton>
       </form>
     </Container>
   );
 }
 
-const MyWrapper = styled.div`
+const MyWrapper = styled.section`
   display: grid;
-  gap: 10px;
-  grid-template-columns: 9fr auto;  
+  gap: 0.8rem;
+  grid-template-columns: 9fr auto;
   & input[type="radio"] {
     margin-left: 20px;
     margin-right: 10px;
