@@ -6,12 +6,14 @@ export default function SurveyCard({ title, date, id, onDelete }) {
   return (
     <StyledSurveyCard>
       <p>{title}</p>
-      
       <p>{date}</p>
       <Link href={`/evaluation/${id}`} passHref>
         <StyledAnchor>Evaluation</StyledAnchor>
       </Link>
-      <StyledButton onClick={onDelete} >Delete</StyledButton>
+      <Link href={`/create/${id}`} passHref>
+        <StyledAnchor>Edit</StyledAnchor>
+      </Link>
+      <StyledButton onClick={onDelete}>Delete</StyledButton>
     </StyledSurveyCard>
   );
 }
@@ -40,4 +42,3 @@ const StyledButton = styled.button`
   cursor: pointer;
   margin-right: 0.8em;
 `;
-
