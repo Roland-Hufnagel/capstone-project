@@ -6,6 +6,7 @@ import Link from "next/link";
 export async function getServerSideProps(context) {
   const { id } = context.params;
   const survey = getSurveyById(id);
+  console.log(id);
   return {
     props: {
       ...survey,
@@ -18,7 +19,7 @@ export default function Evaluation({ id, date, title, questions }) {
     <StyledEvaluation>
       <h1>{title}</h1>
       <p>{date}</p>
-      
+
       <StyledEvaluationList>
         {questions.map((question, index) => (
           <EvaluationCard

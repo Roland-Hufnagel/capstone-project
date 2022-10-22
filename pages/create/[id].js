@@ -3,34 +3,48 @@ import { useRouter } from "next/router";
 import styled from "styled-components";
 import AddButton from "../../components/Buttons/AddButton";
 import DeleteButton from "../../components/Buttons/DeleteButton";
+import { getSurveyById } from "../../services/surveyService";
+import Preview from "../../components/Preview";
 
-export default function CreateSurvey() {
-  const router = useRouter();
-  const [inputFields, setInputFields] = useState([
-    {
-      question: "",
-    },
-  ]);
-
-  const handleChangeInput = (index, event) => {
-    const values = [...inputFields];
-    values[index].question = event.target.value;
-    setInputFields(values);
-  };
-
-  function handleSubmit(event) {
-    event.preventDefault();
-    console.log("in handleSubmit");
-    router.push("../surveys/");
+export async function getServerSideProps(context) {
+  const { id } = context.params;
+  const result = { props: { title: "", questions: [{ title: "" }] } };
+  if (id !== "new") {
+    const survey = getSurveyById(id);
+    result.props = { ...survey };
   }
+  return result;
+}
 
-  function handleDelete(index) {
-    const values = [...inputFields];
-    values.splice(index, 1);
-    setInputFields(values);
+export default function CreateSurvey({ title, questions }) {
+  const router = useRouter();
+  const [survey, setSurvey] = useState({ title: title, questions: questions });
+
+  function handleChangeTitle(event) {
+    const newObj = { ...survey };
+    newObj.title = event.target.value;
+    setSurvey(newObj);
+  }
+  function handleChangeInput(index, event) {
+    const newObj = { ...survey };
+    newObj.questions[index].title = event.target.value;
+    setSurvey(newObj);
   }
   function handleAdd() {
-    setInputFields((pre) => [...pre, { question: "" }]);
+    const newQuestions = survey.questions;
+    newQuestions.push({ title: "", type: "yes/no" });
+    const newSurvey = { ...survey, questions: newQuestions };
+    setSurvey(newSurvey);
+  }
+  function handleDelete(index) {
+    const newQuestions = survey.questions;
+    newQuestions.splice(index, 1);
+    const newSurvey = { ...survey, questions: newQuestions };
+    setSurvey(newSurvey);
+  }
+  function handleSubmit(event) {
+    event.preventDefault();
+    router.push("../surveys/");
   }
 
   return (
@@ -42,11 +56,13 @@ export default function CreateSurvey() {
           name="title"
           placeholder="your title"
           style={{ width: "100%" }}
+          value={survey.title}
+          onChange={handleChangeTitle}
         />
         <hr />
         <AddButton onClick={handleAdd} />
-        {inputFields.map((inputField, index) => (
-          <MyWrapper key={index}>
+        {survey.questions.map((question, index) => (
+          <QuestionWrapper key={index}>
             <input
               onKeyPress={(e) => {
                 e.key === "Enter" && e.preventDefault();
@@ -55,25 +71,16 @@ export default function CreateSurvey() {
               type="text"
               name="question"
               placeholder="your question"
-              value={inputField.question}
+              value={question.title}
               onChange={(event) => handleChangeInput(index, event)}
             />
-
             <DeleteButton
               onClick={() => {
                 handleDelete(index);
               }}
             />
-
-            <MyBox>
-              <legend>Preview:</legend>
-              <p>{inputField.question}</p>
-              <input type="radio" disabled />
-              Yes
-              <input type="radio" disabled />
-              No
-            </MyBox>
-          </MyWrapper>
+            <Preview title={question.title} />
+          </QuestionWrapper>
         ))}
         <hr />
         <SubmitButton type="submit">Save</SubmitButton>
@@ -82,7 +89,7 @@ export default function CreateSurvey() {
   );
 }
 
-const MyWrapper = styled.section`
+const QuestionWrapper = styled.section`
   display: grid;
   gap: 0.8rem;
   grid-template-columns: 9fr auto;
@@ -108,15 +115,7 @@ const Container = styled.main`
     border-radius: 0.5em;
   }
 `;
-const MyBox = styled.fieldset`
-  grid-column-start: 1;
-  grid-column-end: 3;
-  background-color: #ddd;
-  color: #666;
-  border-radius: 5px;
-  border: 1px solid #aaa;
-  margin-bottom: 30px;
-`;
+
 const SubmitButton = styled.button`
   padding: 0.5em;
   border: 4px solid #44803f;
