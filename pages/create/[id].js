@@ -68,6 +68,7 @@ export default function CreateSurvey({ title, questions }) {
                 e.key === "Enter" && e.preventDefault();
               }}
               maxLength="200"
+              
               type="text"
               name="question"
               placeholder="your question"
@@ -93,6 +94,7 @@ const QuestionWrapper = styled.section`
   display: grid;
   gap: 0.8rem;
   grid-template-columns: 9fr auto;
+  word-break: break-word;
   & input[type="radio"] {
     margin-left: 20px;
     margin-right: 10px;
