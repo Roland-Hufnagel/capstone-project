@@ -21,14 +21,14 @@ export default function CreateSurvey({ title, questions }) {
   const [survey, setSurvey] = useState({ title: title, questions: questions });
 
   function handleChangeTitle(event) {
-    const newObj = { ...survey };
-    newObj.title = event.target.value;
-    setSurvey(newObj);
+    setSurvey({ ...survey, title: event.target.value });
   }
+  
   function handleChangeInput(index, event) {
     const newObj = { ...survey };
     newObj.questions[index].title = event.target.value;
     setSurvey(newObj);
+    
   }
   function handleAdd() {
     const newQuestions = survey.questions;
@@ -68,7 +68,6 @@ export default function CreateSurvey({ title, questions }) {
                 e.key === "Enter" && e.preventDefault();
               }}
               maxLength="200"
-              
               type="text"
               name="question"
               placeholder="your question"
