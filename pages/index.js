@@ -2,7 +2,6 @@ import Head from "next/head";
 import Link from "next/link";
 
 export default function Home() {
-  
   return (
     <div>
       <Head>
@@ -14,8 +13,9 @@ export default function Home() {
         <h1>Free Feedback Form</h1>
       </header>
       <main>
-        <Link href="/create">Create Survey</Link>
+        <Link href="/create/new">Create Survey</Link>
       </main>
+      
     </div>
   );
 }
