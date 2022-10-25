@@ -3,6 +3,7 @@ const surveys = [
     id: "abc1",
     date: "2022-02-27",
     title: "cgn-web-22-4 weekly feedback week 1",
+    url: "localhost:3000/survey/abc1",
     questions: [
       { title: "Are you okay?", type: "yes/no", yes: 25, no: 35, na: 10 },
       { title: "Do you like sports", type: "yes/no", yes: 45, no: 10, na: 15 },
@@ -13,6 +14,7 @@ const surveys = [
     id: "abc2",
     date: "2022-02-20",
     title: "cgn-web-22-4 weekly feedback week 2",
+    url: "localhost:3000/survey/abc2",
     questions: [
       { title: "Are you okay?", type: "yes/no", yes: 25, no: 35, na: 10 },
       {
@@ -31,6 +33,7 @@ const surveys = [
     id: "abc3",
     date: "2022-02-14",
     title: "cgn-web-22-4 weekly feedback week 3",
+    url: "localhost:3000/survey/abc3",
     questions: [
       { title: "Are you fine?", type: "yes/no", yes: 45, no: 10, na: 15 },
       { title: "Do you like music?", type: "yes/no", yes: 60, no: 6, na: 4 },
@@ -59,4 +62,3 @@ export function getSurveyById(id) {
 export function getAllSurveys() {
   return surveys;
 }
-

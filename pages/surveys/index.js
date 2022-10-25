@@ -20,6 +20,7 @@ export default function Surveys() {
           <SurveyCard
             key={index}
             title={survey.title}
+            url={survey.url}
             date={survey.date}
             id={survey.id}
             onDelete={() => handleDelete(index)}
