@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { TiDeleteOutline } from "react-icons/ti";
 
-export default function DeleteButton({onClick}) {
+export default function DeleteButton({ onClick }) {
   return (
     <MyButton type="button" onClick={onClick}>
       <MyIcon />
@@ -9,11 +9,12 @@ export default function DeleteButton({onClick}) {
   );
 }
 const MyButton = styled.button`
+  all: unset;
   border: none;
   color: #e3371e;
   &:hover {
     cursor: pointer;
-    color: #A52502;
+    color: #a52502;
   }
 `;
 const MyIcon = styled(TiDeleteOutline)`

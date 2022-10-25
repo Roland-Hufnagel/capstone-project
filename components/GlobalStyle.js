@@ -46,6 +46,8 @@ h2 {
           font-family: 'Noto Sans', sans-serif;
           background-color: var(--background-primary);
           color: var(--text-primary);
+          margin: 0;
+          padding: 0;
       }
       
   `;

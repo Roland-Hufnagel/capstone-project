@@ -64,6 +64,7 @@ export default function CreateSurvey({ title, questions }) {
         <input
           type="text"
           name="title"
+          required
           placeholder="your title"
           style={{ width: "100%" }}
           value={survey.title}
@@ -122,8 +123,8 @@ export default function CreateSurvey({ title, questions }) {
 const QuestionWrapper = styled.section`
   position: relative;
   display: grid;
-  gap: 0.8rem;
-  grid-template-columns: 9fr 1fr auto;
+  gap: 1%;
+  grid-template-columns: 63% 28% 7%;
   word-break: break-word;
   & input[type="radio"] {
     margin-left: 20px;
