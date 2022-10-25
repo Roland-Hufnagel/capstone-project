@@ -49,7 +49,7 @@ export default function CreateSurvey({ title, questions }) {
 
   return (
     <Container>
-      <h1>Create your personal survey:</h1>
+      <h2>Create your personal survey:</h2>
       <form onSubmit={handleSubmit}>
         <input
           type="text"
@@ -99,16 +99,14 @@ const QuestionWrapper = styled.section`
     margin-right: 10px;
   }
 `;
-const Container = styled.main`
+const Container = styled.section`
   padding: 10px;
   max-width: 600px;
   margin: 0 auto;
   display: flex;
   flex-direction: column;
   align-items: stretch;
-  & h1 {
-    text-align: center;
-  }
+  
   & input {
     border: 1px solid #ccc;
     padding: 0.7em;

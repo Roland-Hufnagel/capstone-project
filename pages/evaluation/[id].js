@@ -16,7 +16,7 @@ export async function getServerSideProps(context) {
 export default function Evaluation({ id, date, title, questions }) {
   return (
     <StyledEvaluation>
-      <h1>{title}</h1>
+      <h2>{title}</h2>
       <p>{date}</p>
 
       <StyledEvaluationList>
@@ -40,7 +40,7 @@ export default function Evaluation({ id, date, title, questions }) {
 const StyledEvaluation = styled.article`
   max-width: 600px;
   margin: 0 auto;
-  & h1,
+  
   & p {
     text-align: center;
   }

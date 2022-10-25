@@ -5,7 +5,7 @@ const surveys = [
     title: "cgn-web-22-4 weekly feedback week 1",
     questions: [
       { title: "Are you okay?", type: "yes/no", yes: 25, no: 35, na: 10 },
-      { title: "Do you like sports", type: "yes/no", yes: 45, no: 10, na: 15 },
+      { title: "Do you like sports?", type: "yes/no", yes: 45, no: 10, na: 15 },
       { title: "Do you like movies?", type: "yes/no", yes: 60, no: 6, na: 4 },
     ],
   },
