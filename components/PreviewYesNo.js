@@ -21,4 +21,5 @@ const StyledPreview = styled.fieldset`
   border-radius: 5px;
   border: 1px solid #aaa;
   margin-bottom: 30px;
+  
 `;

@@ -124,7 +124,7 @@ const QuestionWrapper = styled.section`
   position: relative;
   display: grid;
   gap: 1%;
-  grid-template-columns: 63% 28% 7%;
+  grid-template-columns: 65% 26% 7%;
   word-break: break-word;
   & input[type="radio"] {
     margin-left: 20px;
@@ -132,12 +132,13 @@ const QuestionWrapper = styled.section`
   }
 `;
 const Container = styled.section`
-  padding: 10px;
+  padding: 0px;
   max-width: 600px;
   margin: 0 auto;
   display: flex;
   flex-direction: column;
   align-items: stretch;
+  
 
   & input,
   & select {
