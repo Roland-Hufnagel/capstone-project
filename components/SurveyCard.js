@@ -60,7 +60,7 @@ const StyledSurveyCard = styled.li`
   & h2{
     margin-bottom: 0;
   }
-  )
+
 `;
 const StyledAnchor = styled.a`
   all: unset;
