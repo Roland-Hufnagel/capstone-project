@@ -3,12 +3,18 @@ import { useRouter } from "next/router";
 import styled from "styled-components";
 import AddButton from "../../components/Buttons/AddButton";
 import DeleteButton from "../../components/Buttons/DeleteButton";
-import { getSurveyById } from "../../services/surveyService";
-import Preview from "../../components/Preview";
+import { getAllSurveys, getSurveyById } from "../../services/surveyService";
+import PreviewYesNo from "../../components/PreviewYesNo";
+import PreviewText from "../../components/PreviewText";
 
 export async function getServerSideProps(context) {
   const { id } = context.params;
-  const result = { props: { title: "", questions: [{ title: "" }] } };
+  const result = {
+    props: {
+      title: "",
+      questions: [{ title: "", type: "" }],
+    },
+  };
   if (id !== "new") {
     const survey = getSurveyById(id);
     result.props = { ...survey };
@@ -23,16 +29,20 @@ export default function CreateSurvey({ title, questions }) {
   function handleChangeTitle(event) {
     setSurvey({ ...survey, title: event.target.value });
   }
-  
-  function handleChangeInput(index, event) {
+
+  function handleChangeQuestion(index, event) {
     const newObj = { ...survey };
     newObj.questions[index].title = event.target.value;
     setSurvey(newObj);
-    
+  }
+  function handleChangeType(index, event) {
+    const newObj = { ...survey };
+    newObj.questions[index].type = event.target.value;
+    setSurvey(newObj);
   }
   function handleAdd() {
     const newQuestions = survey.questions;
-    newQuestions.push({ title: "", type: "yes/no" });
+    newQuestions.push({ title: "", type: "" });
     const newSurvey = { ...survey, questions: newQuestions };
     setSurvey(newSurvey);
   }
@@ -44,7 +54,7 @@ export default function CreateSurvey({ title, questions }) {
   }
   function handleSubmit(event) {
     event.preventDefault();
-    router.push("../surveys/");
+    console.log(survey);
   }
 
   return (
@@ -60,28 +70,48 @@ export default function CreateSurvey({ title, questions }) {
           onChange={handleChangeTitle}
         />
         <hr />
-        <AddButton onClick={handleAdd} />
+
         {survey.questions.map((question, index) => (
           <QuestionWrapper key={index}>
             <input
               onKeyPress={(e) => {
+                // this prevents a submit when hitting Enter!
                 e.key === "Enter" && e.preventDefault();
               }}
               maxLength="200"
               type="text"
-              name="question"
+              name={`question-${index}`}
               placeholder="your question"
+              required
               value={question.title}
-              onChange={(event) => handleChangeInput(index, event)}
+              onChange={(event) => handleChangeQuestion(index, event)}
             />
+            <select
+              name={`type-${index}`}
+              required
+              value={question.type}
+              onChange={(event) => handleChangeType(index, event)}
+            >
+              <option value="" disabled>
+                choose type
+              </option>
+              <option value="yes/no">Yes/No</option>
+              <option value="text">Text</option>
+            </select>
             <DeleteButton
               onClick={() => {
                 handleDelete(index);
               }}
             />
-            <Preview title={question.title} />
+
+            {question.type === "yes/no" && (
+              <PreviewYesNo title={question.title} />
+            )}
+
+            {question.type === "text" && <PreviewText title={question.title} />}
           </QuestionWrapper>
         ))}
+        <AddButton onClick={handleAdd} />
         <hr />
         <SubmitButton type="submit">Save</SubmitButton>
       </form>
@@ -90,9 +120,10 @@ export default function CreateSurvey({ title, questions }) {
 }
 
 const QuestionWrapper = styled.section`
+  position: relative;
   display: grid;
   gap: 0.8rem;
-  grid-template-columns: 9fr auto;
+  grid-template-columns: 9fr 1fr auto;
   word-break: break-word;
   & input[type="radio"] {
     margin-left: 20px;
@@ -106,8 +137,9 @@ const Container = styled.section`
   display: flex;
   flex-direction: column;
   align-items: stretch;
-  
-  & input {
+
+  & input,
+  & select {
     border: 1px solid #ccc;
     padding: 0.7em;
     font-size: 1rem;
