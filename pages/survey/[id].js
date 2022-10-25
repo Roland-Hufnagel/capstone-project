@@ -25,7 +25,7 @@ export default function Survey({ title, questions }) {
 
   return (
     <StyledForm onSubmit={handleSubmit}>
-      <h1>{title}</h1>
+      <h2>{title}</h2>
       <ul>
         {questions.map((question, index) => (
           <QuestionCard key={index} index={index} question={question.title} />
@@ -39,9 +39,7 @@ export default function Survey({ title, questions }) {
 const StyledForm = styled.form`
   max-width: 600px;
   margin: 0 auto;
-  & h1 {
-    text-align: center;
-  }
+  
   & button {
     width: 100%;
     font-size: 1em;

@@ -12,10 +12,11 @@ export default function Surveys() {
     newObj.splice(index, 1);
     setSurveys(newObj);
   }
- 
+
   return (
     <>
       <StyledSurveyList>
+        <h2>My Surveys:</h2>
         {surveys.map((survey, index) => (
           <SurveyCard
             key={index}
