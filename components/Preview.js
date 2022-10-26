@@ -1,12 +1,16 @@
 import styled from "styled-components";
 
-export default function PreviewText({title}) {
+export default function Preview({title, type}) {
   return (
     <StyledPreview>
       <legend>Preview:</legend>
       <p>{title}</p>
-      <textarea rows="3" disabled style={{width: "100%"}}></textarea>
-      </StyledPreview>
+      {type==="text" && <textarea rows="3" disabled style={{width: "100%"}}></textarea>}
+      {type==="yes/no" && <><input type="radio" disabled />
+      Yes
+      <input type="radio" disabled />
+      No</>}
+     </StyledPreview>
   );
 }
 

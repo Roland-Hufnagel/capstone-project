@@ -4,8 +4,7 @@ import styled from "styled-components";
 import AddButton from "../../components/Buttons/AddButton";
 import DeleteButton from "../../components/Buttons/DeleteButton";
 import { getAllSurveys, getSurveyById } from "../../services/surveyService";
-import PreviewYesNo from "../../components/PreviewYesNo";
-import PreviewText from "../../components/PreviewText";
+import Preview from "../../components/Preview";
 
 export async function getServerSideProps(context) {
   const { id } = context.params;
@@ -41,20 +40,35 @@ export default function CreateSurvey({ title, questions }) {
     setSurvey(newObj);
   }
   function handleAdd() {
-    const newQuestions = survey.questions;
+    const newQuestions = [...survey.questions];
     newQuestions.push({ title: "", type: "" });
     const newSurvey = { ...survey, questions: newQuestions };
     setSurvey(newSurvey);
   }
   function handleDelete(index) {
-    const newQuestions = survey.questions;
+    const newQuestions = [...survey.questions];
     newQuestions.splice(index, 1);
     const newSurvey = { ...survey, questions: newQuestions };
     setSurvey(newSurvey);
   }
   function handleSubmit(event) {
     event.preventDefault();
-    router.push("/surveys");
+    const formData = new FormData(event.target);
+    const data = Object.fromEntries(formData);
+    for (const [key, value] of formData) {
+      if (value.startsWith(" ")) {
+        alert(
+          "Please remove leading whitespace from: " +
+            event.target.elements[key].value
+        );
+      }
+      if (value.endsWith(" ")) {
+        alert(
+          "Please remove whitespace from the end at: " +
+            event.target.elements[key].value
+        );
+      }
+    }
   }
 
   return (
@@ -69,6 +83,10 @@ export default function CreateSurvey({ title, questions }) {
           style={{ width: "100%" }}
           value={survey.title}
           onChange={handleChangeTitle}
+          onKeyPress={(e) => {
+            // this prevents a submit when hitting Enter!
+            e.key === "Enter" && e.preventDefault();
+          }}
         />
         <hr />
 
@@ -104,12 +122,7 @@ export default function CreateSurvey({ title, questions }) {
                 handleDelete(index);
               }}
             />
-
-            {question.type === "yes/no" && (
-              <PreviewYesNo title={question.title} />
-            )}
-
-            {question.type === "text" && <PreviewText title={question.title} />}
+            <Preview title={question.title} type={question.type} />
           </QuestionWrapper>
         ))}
         <AddButton onClick={handleAdd} />
