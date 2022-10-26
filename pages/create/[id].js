@@ -34,7 +34,7 @@ export default function CreateSurvey({ title, questions }) {
     if (newQuestion.startsWith(" ")) {
       newQuestion = newQuestion.replace(" ", "");
     }
-    if (newQuestion.endsWith("  ")) {
+    if (newQuestion.includes("  ")) {
       newQuestion = newQuestion.replace("  ", " ");
     }
     const newObj = { ...survey };
