@@ -54,7 +54,6 @@ export default function CreateSurvey({ title, questions }) {
   }
   function handleSubmit(event) {
     event.preventDefault();
-    console.log(survey);
   }
 
   return (
