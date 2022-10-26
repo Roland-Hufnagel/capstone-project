@@ -54,6 +54,7 @@ export default function CreateSurvey({ title, questions }) {
   }
   function handleSubmit(event) {
     event.preventDefault();
+    router.push("/surveys");
   }
 
   return (
@@ -137,7 +138,6 @@ const Container = styled.section`
   display: flex;
   flex-direction: column;
   align-items: stretch;
-  
 
   & input,
   & select {
