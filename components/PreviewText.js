@@ -6,11 +6,7 @@ export default function PreviewText({title}) {
       <legend>Preview:</legend>
       <p>{title}</p>
       <textarea rows="3" disabled style={{width: "100%"}}></textarea>
-      {/* <input type="radio" disabled />
-      Yes
-      <input type="radio" disabled />
-      No */}
-    </StyledPreview>
+      </StyledPreview>
   );
 }
 
