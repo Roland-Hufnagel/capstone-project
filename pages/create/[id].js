@@ -30,8 +30,15 @@ export default function CreateSurvey({ title, questions }) {
   }
 
   function handleChangeQuestion(index, event) {
+    let newQuestion = event.target.value;
+    if (newQuestion.startsWith(" ")) {
+      newQuestion = newQuestion.replace(" ", "");
+    }
+    if (newQuestion.endsWith("  ")) {
+      newQuestion = newQuestion.replace("  ", " ");
+    }
     const newObj = { ...survey };
-    newObj.questions[index].title = event.target.value;
+    newObj.questions[index].title = newQuestion;
     setSurvey(newObj);
   }
   function handleChangeType(index, event) {
@@ -53,22 +60,7 @@ export default function CreateSurvey({ title, questions }) {
   }
   function handleSubmit(event) {
     event.preventDefault();
-    const formData = new FormData(event.target);
-    const data = Object.fromEntries(formData);
-    for (const [key, value] of formData) {
-      if (value.startsWith(" ")) {
-        alert(
-          "Please remove leading whitespace from: " +
-            event.target.elements[key].value
-        );
-      }
-      if (value.endsWith(" ")) {
-        alert(
-          "Please remove whitespace from the end at: " +
-            event.target.elements[key].value
-        );
-      }
-    }
+    
   }
 
   return (
