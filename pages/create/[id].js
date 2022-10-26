@@ -26,7 +26,15 @@ export default function CreateSurvey({ title, questions }) {
   const [survey, setSurvey] = useState({ title: title, questions: questions });
 
   function handleChangeTitle(event) {
-    setSurvey({ ...survey, title: event.target.value });
+    let newTitle = event.target.value;
+    if (newTitle.startsWith(" ")) {
+      newTitle = newTitle.replace(" ", "");
+    }
+    if (newTitle.includes("  ")) {
+      newTitle = newTitle.replace("  ", " ");
+    }
+
+    setSurvey({ ...survey, title: newTitle });
   }
 
   function handleChangeQuestion(index, event) {
@@ -60,7 +68,6 @@ export default function CreateSurvey({ title, questions }) {
   }
   function handleSubmit(event) {
     event.preventDefault();
-    
   }
 
   return (
