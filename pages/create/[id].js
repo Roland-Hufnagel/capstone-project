@@ -33,7 +33,6 @@ export default function CreateSurvey({ title, questions }) {
     if (newTitle.includes("  ")) {
       newTitle = newTitle.replace("  ", " ");
     }
-
     setSurvey({ ...survey, title: newTitle });
   }
 
@@ -90,39 +89,39 @@ export default function CreateSurvey({ title, questions }) {
         <hr />
 
         {survey.questions.map((question, index) => (
-          <QuestionWrapper key={index}>
-            <input
-              onKeyPress={(e) => {
-                // this prevents a submit when hitting Enter!
-                e.key === "Enter" && e.preventDefault();
-              }}
-              maxLength="200"
-              type="text"
-              name={`question-${index}`}
-              placeholder="your question"
-              required
-              value={question.title}
-              onChange={(event) => handleChangeQuestion(index, event)}
-            />
-            <select
-              name={`type-${index}`}
-              required
-              value={question.type}
-              onChange={(event) => handleChangeType(index, event)}
-            >
-              <option value="" disabled>
-                choose type
-              </option>
-              <option value="yes/no">Yes/No</option>
-              <option value="text">Text</option>
-            </select>
-            <DeleteButton
-              onClick={() => {
-                handleDelete(index);
-              }}
-            />
-            <Preview title={question.title} type={question.type} />
-          </QuestionWrapper>
+            <QuestionWrapper key={index}>
+              <input
+                onKeyPress={(e) => {
+                  // this prevents a submit when hitting Enter!
+                  e.key === "Enter" && e.preventDefault();
+                }}
+                maxLength="200"
+                type="text"
+                name={`question-${index}`}
+                placeholder="your question"
+                required
+                value={question.title}
+                onChange={(event) => handleChangeQuestion(index, event)}
+              />
+              <select
+                name={`type-${index}`}
+                required
+                value={question.type}
+                onChange={(event) => handleChangeType(index, event)}
+              >
+                <option value="" disabled>
+                  choose type
+                </option>
+                <option value="yes/no">Yes/No</option>
+                <option value="text">Text</option>
+              </select>
+              <DeleteButton
+                onClick={() => {
+                  handleDelete(index);
+                }}
+              />
+              <Preview title={question.title} type={question.type} />
+            </QuestionWrapper>
         ))}
         <AddButton onClick={handleAdd} />
         <hr />
@@ -131,7 +130,9 @@ export default function CreateSurvey({ title, questions }) {
     </Container>
   );
 }
-
+const Warning = styled.span`
+display: none;
+`;
 const QuestionWrapper = styled.section`
   position: relative;
   display: grid;
