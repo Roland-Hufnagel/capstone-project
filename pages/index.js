@@ -1,6 +1,6 @@
 import Head from "next/head";
 import Link from "next/link";
-
+import styled from "styled-components";
 export default function Home() {
   return (
     <div>
@@ -11,8 +11,20 @@ export default function Home() {
       </Head>
 
       <main>
-        <Link href="/create/new">Create a Survey</Link>
+        <Link href="/create/new" passHref>
+          <StyledAnchor>Create your first Survey</StyledAnchor>
+        </Link>
       </main>
     </div>
   );
 }
+const StyledAnchor = styled.a`
+  all: unset;
+  border: 1px solid black;
+  border-radius: 0.2em;
+  background-color: #ddd;
+  padding: 0.2em;
+  &:hover{
+    cursor: pointer;
+  }
+`;

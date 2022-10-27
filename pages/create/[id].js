@@ -3,12 +3,17 @@ import { useRouter } from "next/router";
 import styled from "styled-components";
 import AddButton from "../../components/Buttons/AddButton";
 import DeleteButton from "../../components/Buttons/DeleteButton";
-import { getSurveyById } from "../../services/surveyService";
+import { getAllSurveys, getSurveyById } from "../../services/surveyService";
 import Preview from "../../components/Preview";
 
 export async function getServerSideProps(context) {
   const { id } = context.params;
-  const result = { props: { title: "", questions: [{ title: "" }] } };
+  const result = {
+    props: {
+      title: "",
+      questions: [{ title: "", type: "" }],
+    },
+  };
   if (id !== "new") {
     const survey = getSurveyById(id);
     result.props = { ...survey };
@@ -21,30 +26,47 @@ export default function CreateSurvey({ title, questions }) {
   const [survey, setSurvey] = useState({ title: title, questions: questions });
 
   function handleChangeTitle(event) {
-    setSurvey({ ...survey, title: event.target.value });
+    let newTitle = event.target.value;
+    if (newTitle.startsWith(" ")) {
+      newTitle = newTitle.replace(" ", "");
+    }
+    if (newTitle.includes("  ")) {
+      newTitle = newTitle.replace("  ", " ");
+    }
+    setSurvey({ ...survey, title: newTitle });
   }
-  
-  function handleChangeInput(index, event) {
+
+  function handleChangeQuestion(index, event) {
+    let newQuestion = event.target.value;
+    if (newQuestion.startsWith(" ")) {
+      newQuestion = newQuestion.replace(" ", "");
+    }
+    if (newQuestion.includes("  ")) {
+      newQuestion = newQuestion.replace("  ", " ");
+    }
     const newObj = { ...survey };
-    newObj.questions[index].title = event.target.value;
+    newObj.questions[index].title = newQuestion;
     setSurvey(newObj);
-    
+  }
+  function handleChangeType(index, event) {
+    const newObj = { ...survey };
+    newObj.questions[index].type = event.target.value;
+    setSurvey(newObj);
   }
   function handleAdd() {
-    const newQuestions = survey.questions;
-    newQuestions.push({ title: "", type: "yes/no" });
+    const newQuestions = [...survey.questions];
+    newQuestions.push({ title: "", type: "" });
     const newSurvey = { ...survey, questions: newQuestions };
     setSurvey(newSurvey);
   }
   function handleDelete(index) {
-    const newQuestions = survey.questions;
+    const newQuestions = [...survey.questions];
     newQuestions.splice(index, 1);
     const newSurvey = { ...survey, questions: newQuestions };
     setSurvey(newSurvey);
   }
   function handleSubmit(event) {
     event.preventDefault();
-    router.push("../surveys/");
   }
 
   return (
@@ -54,45 +76,68 @@ export default function CreateSurvey({ title, questions }) {
         <input
           type="text"
           name="title"
+          required
           placeholder="your title"
           style={{ width: "100%" }}
           value={survey.title}
           onChange={handleChangeTitle}
+          onKeyPress={(e) => {
+            // this prevents a submit when hitting Enter!
+            e.key === "Enter" && e.preventDefault();
+          }}
         />
         <hr />
-        <AddButton onClick={handleAdd} />
+
         {survey.questions.map((question, index) => (
-          <QuestionWrapper key={index}>
-            <input
-              onKeyPress={(e) => {
-                e.key === "Enter" && e.preventDefault();
-              }}
-              maxLength="200"
-              type="text"
-              name="question"
-              placeholder="your question"
-              value={question.title}
-              onChange={(event) => handleChangeInput(index, event)}
-            />
-            <DeleteButton
-              onClick={() => {
-                handleDelete(index);
-              }}
-            />
-            <Preview title={question.title} />
-          </QuestionWrapper>
+            <QuestionWrapper key={index}>
+              <input
+                onKeyPress={(e) => {
+                  // this prevents a submit when hitting Enter!
+                  e.key === "Enter" && e.preventDefault();
+                }}
+                maxLength="200"
+                type="text"
+                name={`question-${index}`}
+                placeholder="your question"
+                required
+                value={question.title}
+                onChange={(event) => handleChangeQuestion(index, event)}
+              />
+              <select
+                name={`type-${index}`}
+                required
+                value={question.type}
+                onChange={(event) => handleChangeType(index, event)}
+              >
+                <option value="" disabled>
+                  choose type
+                </option>
+                <option value="yes/no">Yes/No</option>
+                <option value="text">Text</option>
+              </select>
+              <DeleteButton
+                onClick={() => {
+                  handleDelete(index);
+                }}
+              />
+              <Preview title={question.title} type={question.type} />
+            </QuestionWrapper>
         ))}
+        <AddButton onClick={handleAdd} />
         <hr />
         <SubmitButton type="submit">Save</SubmitButton>
       </form>
     </Container>
   );
 }
-
+const Warning = styled.span`
+display: none;
+`;
 const QuestionWrapper = styled.section`
+  position: relative;
   display: grid;
-  gap: 0.8rem;
-  grid-template-columns: 9fr auto;
+  gap: 1%;
+  grid-template-columns: 65% 26% 7%;
   word-break: break-word;
   & input[type="radio"] {
     margin-left: 20px;
@@ -100,14 +145,15 @@ const QuestionWrapper = styled.section`
   }
 `;
 const Container = styled.section`
-  padding: 10px;
+  padding: 0px;
   max-width: 600px;
   margin: 0 auto;
   display: flex;
   flex-direction: column;
   align-items: stretch;
-  
-  & input {
+
+  & input,
+  & select {
     border: 1px solid #ccc;
     padding: 0.7em;
     font-size: 1rem;
