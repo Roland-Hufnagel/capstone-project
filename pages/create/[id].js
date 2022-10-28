@@ -5,6 +5,7 @@ import AddButton from "../../components/Buttons/AddButton";
 import DeleteButton from "../../components/Buttons/DeleteButton";
 import { getAllSurveys, getSurveyById } from "../../services/surveyService";
 import Preview from "../../components/Preview";
+//import dbConnect from "../../lib/dbConnect";
 
 export async function getServerSideProps(context) {
   const { id } = context.params;
@@ -15,6 +16,7 @@ export async function getServerSideProps(context) {
     },
   };
   if (id !== "new") {
+    //await dbConnect();
     const survey = getSurveyById(id);
     result.props = { ...survey };
   }

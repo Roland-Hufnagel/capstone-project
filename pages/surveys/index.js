@@ -1,10 +1,38 @@
 import SurveyCard from "../../components/SurveyCard";
-import { getAllSurveys } from "../../services/surveyService";
+import { getAllSurveys, getSurveyById } from "../../services/surveyService";
 import styled from "styled-components";
 import { useState } from "react";
+//import dbConnect from "../../lib/dbConnect";
 
-export default function Surveys() {
-  const [surveys, setSurveys] = useState(getAllSurveys());
+// export async function getServerSideProps(context) {
+//   const { id } = context.params;
+//   // const result = {
+//   //   props: {
+//   //     title: "",
+//   //     questions: [{ title: "", type: "" }],
+//   //   },
+//   // };
+//   // if (id !== "new") {
+//   //   await dbConnect();
+//   //   const survey = getSurveyById(id);
+//   //   result.props = { ...survey };
+//   // }
+//   // return result;
+//   await dbConnect();
+//   const survey = await getSurveyById(id);
+//   return { props: {...survey} };
+// }
+export async function getServerSideProps(context) {
+  const surveys = getAllSurveys();
+  return {
+    props: {
+      mysurveys: [...surveys],
+    },
+  };
+}
+export default function Surveys({ mysurveys }) {
+  console.log(mysurveys);
+  const [surveys, setSurveys] = useState([...mysurveys]);
 
   function handleDelete(index) {
     console.log("handleDelete", index);

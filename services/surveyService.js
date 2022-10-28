@@ -1,3 +1,8 @@
+//import dbConnect from "../lib/dbConnect";
+//import SurveyModel from "../models/SurveyModel";
+//import Question from "../models/QuestionModel";
+
+
 const surveys = [
   {
     id: "abc1",
@@ -55,10 +60,34 @@ const surveys = [
   },
 ];
 
+// export async function getSurveyById(id) {
+//   await dbConnect();
+  
+// }
+export async function getSurveyByIdFromDb(id){
+  //await dbConnect();
+}
+
 export function getSurveyById(id) {
   const survey = surveys.find((survey) => survey.id === id);
   return survey;
-}
+ }
+// export async function getAllSurveys() {
+//   await dbConnect();
+//   const surveys = await SurveyModel.find();
+//   console.log("!!DB: ", surveys);
+//   const sanitizedSurveys = surveys.map((survey) => ({
+//     id: survey._id,
+//     date: survey.date,
+//     title: survey.title,
+//     description: survey.description,
+//     url: survey.url,
+//     author: survey.author,
+//     headerImage: survey.headerImage,
+//   }));
+//   return sanitizedSurveys;
+// }
+
 export function getAllSurveys() {
   return surveys;
 }
