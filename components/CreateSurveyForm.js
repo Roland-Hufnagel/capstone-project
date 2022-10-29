@@ -5,10 +5,9 @@ import AddButton from "./Buttons/AddButton";
 import DeleteButton from "./Buttons/DeleteButton";
 import Preview from "./Preview";
 
-
-export default function CreateSurveyForm({ title, questions }) {
+export default function CreateSurveyForm({ title, questions, date, onSubmit }) {
   const router = useRouter();
-  const [survey, setSurvey] = useState({ title: title, questions: questions });
+  const [survey, setSurvey] = useState({ title: title, date: date, questions: questions });
 
   function handleChangeTitle(event) {
     let newTitle = event.target.value;
@@ -53,6 +52,7 @@ export default function CreateSurveyForm({ title, questions }) {
   function handleSubmit(event) {
     event.preventDefault();
     console.log(survey);
+    onSubmit(survey);
   }
 
   return (

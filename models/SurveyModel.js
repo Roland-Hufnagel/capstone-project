@@ -4,10 +4,10 @@ const { Schema } = mongoose;
 
 const surveySchema = new Schema({
   //_id: {type: Schema.Types.ObjectId},
-  date: { type: String, required: true },
+  date: { type: Date, default: Date.now },
   title: { type: String, required: true },
   description: { type: String },
-  url: { type: String, required: true },
+  url: { type: String },
   author: { type: String },
   headerImage: { type: String },
 });

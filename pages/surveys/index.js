@@ -3,10 +3,11 @@ import styled from "styled-components";
 import { useState } from "react";
 import dbConnect from "../../lib/dbConnect";
 import SurveyModel from "../../models/SurveyModel";
+import { useRouter } from "next/router";
 
 export async function getServerSideProps(context) {
   await dbConnect();
-  const surveys= await SurveyModel.find();
+  const surveys = await SurveyModel.find().sort({ date: -1 });
   const sanitizedSurveys = surveys.map((survey) => ({
     id: survey.id,
     date: survey.date,
@@ -16,7 +17,7 @@ export async function getServerSideProps(context) {
     author: survey.author,
     headerImage: survey.headerImage,
   }));
-  
+
   return {
     props: {
       mysurveys: [...sanitizedSurveys],
@@ -24,12 +25,23 @@ export async function getServerSideProps(context) {
   };
 }
 export default function Surveys({ mysurveys }) {
+  const router = useRouter();
   const [surveys, setSurveys] = useState([...mysurveys]);
 
-  function handleDelete(index) {
-    const newObj = [...surveys];
-    newObj.splice(index, 1);
-    setSurveys(newObj);
+  async function handleDelete(surveyId) {
+    try {
+      const response = await fetch(`/api/edit/${surveyId}`, {
+        method: "DELETE",
+        body: JSON.stringify(surveyId),
+      });
+      const result = await response.json();
+      router.reload("/");
+    } catch (error) {
+      console.error(error);
+    }
+    // const newObj = [...surveys];
+    // newObj.splice(index, 1);
+    // setSurveys(newObj);
   }
 
   return (
@@ -43,7 +55,7 @@ export default function Surveys({ mysurveys }) {
             url={survey.url}
             date={survey.date}
             id={survey.id}
-            onDelete={() => handleDelete(index)}
+            onDelete={() => handleDelete(survey.id)}
           />
         ))}
       </StyledSurveyList>
