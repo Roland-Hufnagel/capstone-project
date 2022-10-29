@@ -3,9 +3,10 @@ import { useRouter } from "next/router";
 import styled from "styled-components";
 import AddButton from "../../components/Buttons/AddButton";
 import DeleteButton from "../../components/Buttons/DeleteButton";
-import { getAllSurveys, getSurveyById } from "../../services/surveyService";
 import Preview from "../../components/Preview";
-//import dbConnect from "../../lib/dbConnect";
+import dbConnect from "../../lib/dbConnect";
+import QuestionModel from "../../models/QuestionModel";
+import SurveyModel from "../../models/SurveyModel";
 
 export async function getServerSideProps(context) {
   const { id } = context.params;
@@ -16,9 +17,16 @@ export async function getServerSideProps(context) {
     },
   };
   if (id !== "new") {
-    //await dbConnect();
-    const survey = getSurveyById(id);
-    result.props = { ...survey };
+    await dbConnect();
+    const survey = await SurveyModel.findById(id);
+    const title = survey.title;
+    const questions = await QuestionModel.find({ survey_id: id });
+    const sanitizedQuestions = questions.map((question) => ({
+      id: question.id,
+      title: question.title,
+      type: question.type,
+    }));
+    result.props = { title: title, questions: [...sanitizedQuestions] };
   }
   return result;
 }
@@ -91,39 +99,39 @@ export default function CreateSurvey({ title, questions }) {
         <hr />
 
         {survey.questions.map((question, index) => (
-            <QuestionWrapper key={index}>
-              <input
-                onKeyPress={(e) => {
-                  // this prevents a submit when hitting Enter!
-                  e.key === "Enter" && e.preventDefault();
-                }}
-                maxLength="200"
-                type="text"
-                name={`question-${index}`}
-                placeholder="your question"
-                required
-                value={question.title}
-                onChange={(event) => handleChangeQuestion(index, event)}
-              />
-              <select
-                name={`type-${index}`}
-                required
-                value={question.type}
-                onChange={(event) => handleChangeType(index, event)}
-              >
-                <option value="" disabled>
-                  choose type
-                </option>
-                <option value="yes/no">Yes/No</option>
-                <option value="text">Text</option>
-              </select>
-              <DeleteButton
-                onClick={() => {
-                  handleDelete(index);
-                }}
-              />
-              <Preview title={question.title} type={question.type} />
-            </QuestionWrapper>
+          <QuestionWrapper key={index}>
+            <input
+              onKeyPress={(e) => {
+                // this prevents a submit when hitting Enter!
+                e.key === "Enter" && e.preventDefault();
+              }}
+              maxLength="200"
+              type="text"
+              name={`question-${index}`}
+              placeholder="your question"
+              required
+              value={question.title}
+              onChange={(event) => handleChangeQuestion(index, event)}
+            />
+            <select
+              name={`type-${index}`}
+              required
+              value={question.type}
+              onChange={(event) => handleChangeType(index, event)}
+            >
+              <option value="" disabled>
+                choose type
+              </option>
+              <option value="yes/no">Yes/No</option>
+              <option value="text">Text</option>
+            </select>
+            <DeleteButton
+              onClick={() => {
+                handleDelete(index);
+              }}
+            />
+            <Preview title={question.title} type={question.type} />
+          </QuestionWrapper>
         ))}
         <AddButton onClick={handleAdd} />
         <hr />
@@ -133,7 +141,7 @@ export default function CreateSurvey({ title, questions }) {
   );
 }
 const Warning = styled.span`
-display: none;
+  display: none;
 `;
 const QuestionWrapper = styled.section`
   position: relative;

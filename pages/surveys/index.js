@@ -1,41 +1,32 @@
 import SurveyCard from "../../components/SurveyCard";
-import { getAllSurveys, getSurveyById } from "../../services/surveyService";
 import styled from "styled-components";
 import { useState } from "react";
-//import dbConnect from "../../lib/dbConnect";
+import dbConnect from "../../lib/dbConnect";
+import SurveyModel from "../../models/SurveyModel";
 
-// export async function getServerSideProps(context) {
-//   const { id } = context.params;
-//   // const result = {
-//   //   props: {
-//   //     title: "",
-//   //     questions: [{ title: "", type: "" }],
-//   //   },
-//   // };
-//   // if (id !== "new") {
-//   //   await dbConnect();
-//   //   const survey = getSurveyById(id);
-//   //   result.props = { ...survey };
-//   // }
-//   // return result;
-//   await dbConnect();
-//   const survey = await getSurveyById(id);
-//   return { props: {...survey} };
-// }
 export async function getServerSideProps(context) {
-  const surveys = getAllSurveys();
+  await dbConnect();
+  const surveys= await SurveyModel.find();
+  const sanitizedSurveys = surveys.map((survey) => ({
+    id: survey.id,
+    date: survey.date,
+    title: survey.title,
+    description: survey.description,
+    url: survey.url,
+    author: survey.author,
+    headerImage: survey.headerImage,
+  }));
+  
   return {
     props: {
-      mysurveys: [...surveys],
+      mysurveys: [...sanitizedSurveys],
     },
   };
 }
 export default function Surveys({ mysurveys }) {
-  console.log(mysurveys);
   const [surveys, setSurveys] = useState([...mysurveys]);
 
   function handleDelete(index) {
-    console.log("handleDelete", index);
     const newObj = [...surveys];
     newObj.splice(index, 1);
     setSurveys(newObj);

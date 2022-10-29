@@ -6,7 +6,7 @@ const questionSchema = new Schema({
   survey_id: { type: Schema.Types.ObjectId, ref: "SurveyModel", required: true },
   title: { type: String, required: true },
   type: { type: String, required: true },
-  results: { type: [String] },
+  results: { type: [] },
 });
 
 const QuestionModel =

@@ -3,6 +3,7 @@ import mongoose from "mongoose";
 const { Schema } = mongoose;
 
 const surveySchema = new Schema({
+  //_id: {type: Schema.Types.ObjectId},
   date: { type: String, required: true },
   title: { type: String, required: true },
   description: { type: String },

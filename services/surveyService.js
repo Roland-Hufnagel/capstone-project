@@ -72,21 +72,21 @@ export function getSurveyById(id) {
   const survey = surveys.find((survey) => survey.id === id);
   return survey;
  }
-// export async function getAllSurveys() {
-//   await dbConnect();
-//   const surveys = await SurveyModel.find();
-//   console.log("!!DB: ", surveys);
-//   const sanitizedSurveys = surveys.map((survey) => ({
-//     id: survey._id,
-//     date: survey.date,
-//     title: survey.title,
-//     description: survey.description,
-//     url: survey.url,
-//     author: survey.author,
-//     headerImage: survey.headerImage,
-//   }));
-//   return sanitizedSurveys;
-// }
+export async function getAllSurveysFromDb() {
+  await dbConnect();
+  const surveys = await SurveyModel.find();
+  console.log("!!DB: ", surveys);
+  const sanitizedSurveys = surveys.map((survey) => ({
+    id: survey._id,
+    date: survey.date,
+    title: survey.title,
+    description: survey.description,
+    url: survey.url,
+    author: survey.author,
+    headerImage: survey.headerImage,
+  }));
+  return sanitizedSurveys;
+}
 
 export function getAllSurveys() {
   return surveys;
