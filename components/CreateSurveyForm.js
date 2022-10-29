@@ -1,37 +1,12 @@
 import { useState } from "react";
 import { useRouter } from "next/router";
 import styled from "styled-components";
-import AddButton from "../../components/Buttons/AddButton";
-import DeleteButton from "../../components/Buttons/DeleteButton";
-import Preview from "../../components/Preview";
-import dbConnect from "../../lib/dbConnect";
-import QuestionModel from "../../models/QuestionModel";
-import SurveyModel from "../../models/SurveyModel";
+import AddButton from "./Buttons/AddButton";
+import DeleteButton from "./Buttons/DeleteButton";
+import Preview from "./Preview";
 
-export async function getServerSideProps(context) {
-  const { id } = context.params;
-  const result = {
-    props: {
-      title: "",
-      questions: [{ title: "", type: "" }],
-    },
-  };
-  if (id !== "new") {
-    await dbConnect();
-    const survey = await SurveyModel.findById(id);
-    const title = survey.title;
-    const questions = await QuestionModel.find({ survey_id: id });
-    const sanitizedQuestions = questions.map((question) => ({
-      id: question.id,
-      title: question.title,
-      type: question.type,
-    }));
-    result.props = { title: title, questions: [...sanitizedQuestions] };
-  }
-  return result;
-}
 
-export default function CreateSurvey({ title, questions }) {
+export default function CreateSurveyForm({ title, questions }) {
   const router = useRouter();
   const [survey, setSurvey] = useState({ title: title, questions: questions });
 
@@ -77,6 +52,7 @@ export default function CreateSurvey({ title, questions }) {
   }
   function handleSubmit(event) {
     event.preventDefault();
+    console.log(survey);
   }
 
   return (
@@ -140,9 +116,7 @@ export default function CreateSurvey({ title, questions }) {
     </Container>
   );
 }
-const Warning = styled.span`
-  display: none;
-`;
+
 const QuestionWrapper = styled.section`
   position: relative;
   display: grid;
@@ -161,7 +135,6 @@ const Container = styled.section`
   display: flex;
   flex-direction: column;
   align-items: stretch;
-
   & input,
   & select {
     border: 1px solid #ccc;

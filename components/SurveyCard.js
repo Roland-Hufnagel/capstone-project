@@ -22,7 +22,7 @@ export default function SurveyCard({ title, url, date, id, onDelete }) {
         <Link href={`/evaluation/${id}`} passHref>
           <StyledAnchor>Evaluation</StyledAnchor>
         </Link>
-        <Link href={`/create/${id}`} passHref>
+        <Link href={`/edit/${id}`} passHref>
           <StyledAnchor>Edit</StyledAnchor>
         </Link>
         <StyledButton onClick={onDelete}>Delete</StyledButton>
@@ -57,10 +57,9 @@ const StyledSurveyCard = styled.li`
   display: flex;
   flex-direction: column;
   gap: 10px;
-  & h2{
+  & h2 {
     margin-bottom: 0;
   }
-
 `;
 const StyledAnchor = styled.a`
   all: unset;
