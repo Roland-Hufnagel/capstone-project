@@ -32,7 +32,11 @@ export default function Surveys({ surveys }) {
     <>
       <StyledSurveyList>
         <StyledContainer>
-          <AddButton />
+          <AddButton
+            onClick={() => {
+              router.push("/create");
+            }}
+          />
           <h2>My Surveys:</h2>
         </StyledContainer>
         {JSON.parse(surveys).map((survey, index) => (
