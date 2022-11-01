@@ -1,42 +1,51 @@
 import QuestionCard from "../../components/QuestionCard";
 import styled from "styled-components";
 import { useRouter } from "next/router";
-import dbConnect from "../../lib/dbConnect";
-import SurveyModel from "../../models/SurveyModel";
-import QuestionModel from "../../models/QuestionModel";
+import { getSurveyById } from "../../services/surveyService";
 
 export async function getServerSideProps(context) {
   const { id } = context.params;
-  await dbConnect();
-  const survey = await SurveyModel.findById(id);
-  const title = survey.title;
-  const questions = await QuestionModel.find({ survey_id: id });
-  const sanitizedQuestions = questions.map((question) => ({
-    id: question.id,
-    title: question.title,
-    type: question.type,
-  }));
-  return { props: { title: title, questions: [...sanitizedQuestions] } };
+  const survey = await getSurveyById(id);
+
+  return {
+    props: {
+      ...survey,
+    },
+  };
 }
 
-export default function Survey({ title, questions }) {
+export default function Survey({ id, title, date, questions }) {
   const router = useRouter();
 
-  function handleSubmit(event) {
+  async function handleSubmit(event) {
     event.preventDefault();
     const formData = new FormData(event.target);
     const data = Object.fromEntries(formData);
-    router.push("./thankyou");
+    for (const key in data) {
+      questions.find((question) => question.id === key).answers.push(data[key]);
+    }
+    try {
+      const response = await fetch(`/api/subscribe/${id}`, {
+        method: "PUT",
+        body: JSON.stringify(questions),
+      });
+      const result = await response.json();
+      console.log(result);
+      // router.push("./thankyou");
+    } catch (error) {
+      console.error(error);
+    }
   }
 
   return (
     <StyledForm onSubmit={handleSubmit}>
       <h2>{title}</h2>
+      <p>{date}</p>
       <ul>
         {questions.map((question, index) => (
           <QuestionCard
             key={index}
-            index={index}
+            id={question.id}
             question={question.title}
             type={question.type}
           />

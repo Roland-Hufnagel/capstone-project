@@ -1,34 +1,19 @@
 import EvaluationCard from "../../components/EvaluationCard";
 import styled from "styled-components";
 import Link from "next/link";
-import dbConnect from "../../lib/dbConnect";
-import SurveyModel from "../../models/SurveyModel";
-import QuestionModel from "../../models/QuestionModel";
+import { getSurveyById } from "../../services/surveyService";
 
 export async function getServerSideProps(context) {
   const { id } = context.params;
-  await dbConnect();
-  const survey = await SurveyModel.findById(id);
-  const title = survey.title;
-  const date = survey.date;
-  const questions = await QuestionModel.find({ survey_id: id });
-  const sanitizedQuestions = questions.map((question) => ({
-    id: question.id,
-    title: question.title,
-    type: question.type,
-    results: question.results,
-  }));
+  const survey = await getSurveyById(id);
   return {
     props: {
-      id: id,
-      title: title,
-      date: date,
-      questions: [...sanitizedQuestions],
+      ...survey,
     },
   };
 }
 
-export default function Evaluation({ id, date, title, questions }) {
+export default function Evaluation({ title, date, questions }) {
   return (
     <StyledEvaluation>
       <h2>{title}</h2>
@@ -39,7 +24,7 @@ export default function Evaluation({ id, date, title, questions }) {
             key={index}
             question={question.title}
             type={question.type}
-            results={question.results}
+            answers={question.answers}
           />
         ))}
       </StyledEvaluationList>

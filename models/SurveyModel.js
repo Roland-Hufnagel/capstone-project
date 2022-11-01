@@ -3,13 +3,18 @@ import mongoose from "mongoose";
 const { Schema } = mongoose;
 
 const surveySchema = new Schema({
-  //_id: {type: Schema.Types.ObjectId},
-  date: { type: Date, default: Date.now },
   title: { type: String, required: true },
   description: { type: String },
+  date: { type: Date },
   url: { type: String },
-  author: { type: String },
-  headerImage: { type: String },
+  questions: [
+    {
+      id: { type: String },
+      title: { type: String },
+      type: { type: String },
+      answers: [String],
+    },
+  ],
 });
 const SurveyModel =
   mongoose.models.SurveyModel ||

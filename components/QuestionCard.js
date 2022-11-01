@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-export default function QuestionCard({ question, index, type }) {
+export default function QuestionCard({ question, id, type }) {
   return (
     <StyledQuestionCard>
       <fieldset>
@@ -8,18 +8,18 @@ export default function QuestionCard({ question, index, type }) {
         {type === "yes/no" && (
           <>
             <label>
-              <input type="radio" name={question} value="Yes" />
+              <input type="radio" name={id} value="Yes" required />
               Yes
             </label>
             <label>
-              <input type="radio" name={question} value="No" />
+              <input type="radio" name={id} value="No" />
               No
             </label>
           </>
         )}
         {type === "text" && (
           <>
-            <textarea rows="3" maxLength="200" name={question} />
+            <textarea rows="3" maxLength="200" name={id} />
           </>
         )}
       </fieldset>
@@ -38,6 +38,6 @@ const StyledQuestionCard = styled.li`
   }
   & textarea {
     width: 100%;
-    font-family: 'Noto Sans';
+    font-family: "Noto Sans";
   }
 `;

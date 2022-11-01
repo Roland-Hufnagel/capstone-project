@@ -1,20 +1,28 @@
 import styled from "styled-components";
 
-export default function EvaluationCard({ question, type, results }) {
+export default function EvaluationCard({ question, type, answers }) {
+
+  function count(param) {
+    if (param === "Yes") {
+      return answers.filter((answer) => answer === "Yes").length;
+    } else if (param === "No") {
+      return answers.filter((answer) => answer === "No").length;
+    } 
+  }
+
   return (
     <StyledEvaluationCard>
       <h2>{question}</h2>
       {type === "yes/no" && (
         <>
-          <p>Yes: {results[0]}</p>
-          <p>No: {results[1]}</p>
-          <p>n/a: {results[2]}</p>
+          <p>Yes: {count("Yes")}</p>
+          <p>No: {count("No")}</p>
         </>
       )}
       {type === "text" && (
         <>
-          {results.map((result, index) => (
-            <p key={index}>{result}</p>
+          {answers.map((answer, index) => (
+            <p key={index}>{answer}</p>
           ))}
         </>
       )}

@@ -5,9 +5,22 @@ import AddButton from "./Buttons/AddButton";
 import DeleteButton from "./Buttons/DeleteButton";
 import Preview from "./Preview";
 
-export default function CreateSurveyForm({ title, questions, date, onSubmit }) {
+export default function CreateSurveyForm({
+  title,
+  questions,
+  date,
+  description,
+  url,
+  onSubmit,
+}) {
   const router = useRouter();
-  const [survey, setSurvey] = useState({ title: title, date: date, questions: questions });
+  const [survey, setSurvey] = useState({
+    title: title,
+    description: description,
+    date: date,
+    url: url,
+    questions: questions,
+  });
 
   function handleChangeTitle(event) {
     let newTitle = event.target.value;
@@ -39,7 +52,12 @@ export default function CreateSurveyForm({ title, questions, date, onSubmit }) {
   }
   function handleAdd() {
     const newQuestions = [...survey.questions];
-    newQuestions.push({ title: "", type: "" });
+    newQuestions.push({
+      title: "",
+      type: "",
+      id: Math.random().toString(),
+      answers: [],
+    });
     const newSurvey = { ...survey, questions: newQuestions };
     setSurvey(newSurvey);
   }
@@ -51,7 +69,7 @@ export default function CreateSurveyForm({ title, questions, date, onSubmit }) {
   }
   function handleSubmit(event) {
     event.preventDefault();
-    console.log(survey);
+
     onSubmit(survey);
   }
 

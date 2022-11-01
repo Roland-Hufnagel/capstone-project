@@ -12,7 +12,7 @@ const StyledSection = styled.section`
   text-align: center;
   padding: 10px;
   & p{
-    max-width: 600px;
+    //max-width: 600px;
     margin: 0 auto;
     border-radius: 1em;
     font-size: 3em;

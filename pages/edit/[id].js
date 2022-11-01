@@ -1,22 +1,41 @@
+import { useRouter } from "next/router";
 import CreateSurveyForm from "../../components/CreateSurveyForm";
-import dbConnect from "../../lib/dbConnect";
-import QuestionModel from "../../models/QuestionModel";
-import SurveyModel from "../../models/SurveyModel";
+import { getSurveyById } from "../../services/surveyService";
 
 export async function getServerSideProps(context) {
   const { id } = context.params;
-  await dbConnect();
-  const survey = await SurveyModel.findById(id);
-  const title = survey.title;
-  const questions = await QuestionModel.find({ survey_id: id });
-  const sanitizedQuestions = questions.map((question) => ({
-    id: question.id,
-    title: question.title,
-    type: question.type,
-  }));
-  return { props: { title: title, questions: [...sanitizedQuestions] } };
+  const survey = await getSurveyById(id);
+  return {
+    props: {
+      ...survey,
+    },
+  };
 }
 
-export default function Edit({ title, questions }) {
-  return <CreateSurveyForm title={title} questions={questions} />;
+export default function Edit({ id, title, description, date, url, questions }) {
+  const router = useRouter();
+  async function handleSubmit(data) {
+    try {
+      const response = await fetch(`/api/edit/${id}`, {
+        method: "PATCH",
+        body: JSON.stringify(data),
+      });
+      const result = await response.json();
+      console.log(result);
+      router.push("../surveys");
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
+  return (
+    <CreateSurveyForm
+      title={title}
+      description={description}
+      date={date}
+      url={url}
+      questions={questions}
+      onSubmit={handleSubmit}
+    />
+  );
 }
