@@ -20,8 +20,7 @@ export default function Edit({ id, title, description, date, url, questions }) {
         method: "PATCH",
         body: JSON.stringify(data),
       });
-      const result = await response.json();
-      console.log(result);
+      await response.json();
       router.push("../surveys");
     } catch (error) {
       console.error(error);

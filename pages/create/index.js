@@ -1,5 +1,6 @@
 import { useRouter } from "next/router";
 import CreateSurveyForm from "../../components/CreateSurveyForm";
+import { nanoid } from "nanoid";
 
 export async function getServerSideProps(context) {
   const { req } = context;
@@ -16,7 +17,7 @@ export default function Create({ host }) {
         method: "POST",
         body: JSON.stringify(data),
       });
-      const result = await response.json();
+      await response.json();
       router.push("../surveys");
     } catch (error) {
       console.error(error);
@@ -31,7 +32,7 @@ export default function Create({ host }) {
       url={`${host}/survey/`}
       questions={[
         {
-          id: Math.random().toString(),
+          id: nanoid(),
           title: "",
           type: "",
           answers: [],

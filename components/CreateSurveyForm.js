@@ -4,7 +4,7 @@ import styled from "styled-components";
 import AddButton from "./Buttons/AddButton";
 import DeleteButton from "./Buttons/DeleteButton";
 import Preview from "./Preview";
-
+import { nanoid } from "nanoid";
 export default function CreateSurveyForm({
   title,
   questions,
@@ -55,7 +55,7 @@ export default function CreateSurveyForm({
     newQuestions.push({
       title: "",
       type: "",
-      id: Math.random().toString(),
+      id: nanoid(),
       answers: [],
     });
     const newSurvey = { ...survey, questions: newQuestions };

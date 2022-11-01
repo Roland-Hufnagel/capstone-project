@@ -29,8 +29,7 @@ export default function Survey({ id, title, date, questions }) {
         method: "PUT",
         body: JSON.stringify(questions),
       });
-      const result = await response.json();
-      console.log(result);
+      await response.json();
       router.push("./thankyou");
     } catch (error) {
       console.error(error);
