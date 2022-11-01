@@ -1,13 +1,12 @@
 import styled from "styled-components";
 
 export default function EvaluationCard({ question, type, answers }) {
-
   function count(param) {
     if (param === "Yes") {
       return answers.filter((answer) => answer === "Yes").length;
     } else if (param === "No") {
       return answers.filter((answer) => answer === "No").length;
-    } 
+    }
   }
 
   return (
@@ -36,5 +35,8 @@ const StyledEvaluationCard = styled.li`
   padding: 0.5em;
   & h2 {
     text-align: center;
+  }
+  & p {
+    word-break: break-word;
   }
 `;
