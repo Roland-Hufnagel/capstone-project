@@ -31,7 +31,7 @@ export default function Survey({ id, title, date, questions }) {
       });
       const result = await response.json();
       console.log(result);
-      // router.push("./thankyou");
+      router.push("./thankyou");
     } catch (error) {
       console.error(error);
     }
