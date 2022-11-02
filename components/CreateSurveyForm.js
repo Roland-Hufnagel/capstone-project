@@ -1,29 +1,26 @@
 import { useState } from "react";
 import { useRouter } from "next/router";
 import styled from "styled-components";
-import AddButton from "../../components/Buttons/AddButton";
-import DeleteButton from "../../components/Buttons/DeleteButton";
-import { getAllSurveys, getSurveyById } from "../../services/surveyService";
-import Preview from "../../components/Preview";
-
-export async function getServerSideProps(context) {
-  const { id } = context.params;
-  const result = {
-    props: {
-      title: "",
-      questions: [{ title: "", type: "" }],
-    },
-  };
-  if (id !== "new") {
-    const survey = getSurveyById(id);
-    result.props = { ...survey };
-  }
-  return result;
-}
-
-export default function CreateSurvey({ title, questions }) {
+import AddButton from "./Buttons/AddButton";
+import DeleteButton from "./Buttons/DeleteButton";
+import Preview from "./Preview";
+import { nanoid } from "nanoid";
+export default function CreateSurveyForm({
+  title,
+  questions,
+  date,
+  description,
+  url,
+  onSubmit,
+}) {
   const router = useRouter();
-  const [survey, setSurvey] = useState({ title: title, questions: questions });
+  const [survey, setSurvey] = useState({
+    title: title,
+    description: description,
+    date: date,
+    url: url,
+    questions: questions,
+  });
 
   function handleChangeTitle(event) {
     let newTitle = event.target.value;
@@ -55,7 +52,12 @@ export default function CreateSurvey({ title, questions }) {
   }
   function handleAdd() {
     const newQuestions = [...survey.questions];
-    newQuestions.push({ title: "", type: "" });
+    newQuestions.push({
+      title: "",
+      type: "",
+      id: nanoid(),
+      answers: [],
+    });
     const newSurvey = { ...survey, questions: newQuestions };
     setSurvey(newSurvey);
   }
@@ -67,6 +69,8 @@ export default function CreateSurvey({ title, questions }) {
   }
   function handleSubmit(event) {
     event.preventDefault();
+
+    onSubmit(survey);
   }
 
   return (
@@ -89,39 +93,39 @@ export default function CreateSurvey({ title, questions }) {
         <hr />
 
         {survey.questions.map((question, index) => (
-            <QuestionWrapper key={index}>
-              <input
-                onKeyPress={(e) => {
-                  // this prevents a submit when hitting Enter!
-                  e.key === "Enter" && e.preventDefault();
-                }}
-                maxLength="200"
-                type="text"
-                name={`question-${index}`}
-                placeholder="your question"
-                required
-                value={question.title}
-                onChange={(event) => handleChangeQuestion(index, event)}
-              />
-              <select
-                name={`type-${index}`}
-                required
-                value={question.type}
-                onChange={(event) => handleChangeType(index, event)}
-              >
-                <option value="" disabled>
-                  choose type
-                </option>
-                <option value="yes/no">Yes/No</option>
-                <option value="text">Text</option>
-              </select>
-              <DeleteButton
-                onClick={() => {
-                  handleDelete(index);
-                }}
-              />
-              <Preview title={question.title} type={question.type} />
-            </QuestionWrapper>
+          <QuestionWrapper key={index}>
+            <input
+              onKeyPress={(e) => {
+                // this prevents a submit when hitting Enter!
+                e.key === "Enter" && e.preventDefault();
+              }}
+              maxLength="200"
+              type="text"
+              name={`question-${index}`}
+              placeholder="your question"
+              required
+              value={question.title}
+              onChange={(event) => handleChangeQuestion(index, event)}
+            />
+            <select
+              name={`type-${index}`}
+              required
+              value={question.type}
+              onChange={(event) => handleChangeType(index, event)}
+            >
+              <option value="" disabled>
+                choose type
+              </option>
+              <option value="yes/no">Yes/No</option>
+              <option value="text">Text</option>
+            </select>
+            <DeleteButton
+              onClick={() => {
+                handleDelete(index);
+              }}
+            />
+            <Preview title={question.title} type={question.type} />
+          </QuestionWrapper>
         ))}
         <AddButton onClick={handleAdd} />
         <hr />
@@ -130,9 +134,7 @@ export default function CreateSurvey({ title, questions }) {
     </Container>
   );
 }
-const Warning = styled.span`
-display: none;
-`;
+
 const QuestionWrapper = styled.section`
   position: relative;
   display: grid;
@@ -151,7 +153,6 @@ const Container = styled.section`
   display: flex;
   flex-direction: column;
   align-items: stretch;
-
   & input,
   & select {
     border: 1px solid #ccc;

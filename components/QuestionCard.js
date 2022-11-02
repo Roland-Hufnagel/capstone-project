@@ -1,12 +1,27 @@
 import styled from "styled-components";
 
-export default function QuestionCard({ question, index }) {
+export default function QuestionCard({ question, id, type }) {
   return (
     <StyledQuestionCard>
       <fieldset>
         <legend>{question}</legend>
-        <label><input type="radio" name={question} value="Yes" />Yes</label>
-        <label><input type="radio" name={question} value="No" />No</label>
+        {type === "yes/no" && (
+          <>
+            <label>
+              <input type="radio" name={id} value="Yes" required />
+              Yes
+            </label>
+            <label>
+              <input type="radio" name={id} value="No" />
+              No
+            </label>
+          </>
+        )}
+        {type === "text" && (
+          <>
+            <textarea rows="3" maxLength="200" name={id} />
+          </>
+        )}
       </fieldset>
     </StyledQuestionCard>
   );
@@ -14,11 +29,15 @@ export default function QuestionCard({ question, index }) {
 
 const StyledQuestionCard = styled.li`
   list-style: none;
-  margin: 1.0rem 0;
+  margin: 1rem 0;
   & input {
     margin: 1.2em;
   }
-  & fieldset{
+  & fieldset {
     border-radius: 0.4em;
+  }
+  & textarea {
+    width: 100%;
+    font-family: "Noto Sans";
   }
 `;

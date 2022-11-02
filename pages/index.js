@@ -11,8 +11,11 @@ export default function Home() {
       </Head>
 
       <main>
-        <Link href="/create/new" passHref>
-          <StyledAnchor>Create your first Survey</StyledAnchor>
+      <Link href="/create" passHref>
+          <StyledAnchor>Create a new Survey</StyledAnchor>
+        </Link>
+        <Link href="/surveys" passHref>
+          <StyledAnchor>My Surveys</StyledAnchor>
         </Link>
       </main>
     </div>

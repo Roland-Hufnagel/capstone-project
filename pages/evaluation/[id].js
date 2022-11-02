@@ -1,11 +1,11 @@
-import { getSurveyById } from "../../services/surveyService";
 import EvaluationCard from "../../components/EvaluationCard";
 import styled from "styled-components";
 import Link from "next/link";
+import { getSurveyById } from "../../services/surveyService";
 
 export async function getServerSideProps(context) {
   const { id } = context.params;
-  const survey = getSurveyById(id);
+  const survey = await getSurveyById(id);
   return {
     props: {
       ...survey,
@@ -13,20 +13,18 @@ export async function getServerSideProps(context) {
   };
 }
 
-export default function Evaluation({ id, date, title, questions }) {
+export default function Evaluation({ title, date, questions }) {
   return (
     <StyledEvaluation>
       <h2>{title}</h2>
       <p>{date}</p>
-
       <StyledEvaluationList>
         {questions.map((question, index) => (
           <EvaluationCard
             key={index}
             question={question.title}
-            yes={question.yes}
-            no={question.no}
-            na={question.na}
+            type={question.type}
+            answers={question.answers}
           />
         ))}
       </StyledEvaluationList>
@@ -40,7 +38,6 @@ export default function Evaluation({ id, date, title, questions }) {
 const StyledEvaluation = styled.article`
   max-width: 600px;
   margin: 0 auto;
-  
   & p {
     text-align: center;
   }

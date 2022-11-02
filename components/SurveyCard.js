@@ -1,8 +1,7 @@
 import styled from "styled-components";
-import { evaluateBySurveyId } from "../services/surveyService";
 import Link from "next/link";
 import { MdOutlineContentCopy } from "react-icons/md";
-import DeleteButton from "./Buttons/DeleteButton";
+
 export default function SurveyCard({ title, url, date, id, onDelete }) {
   return (
     <StyledSurveyCard>
@@ -22,7 +21,7 @@ export default function SurveyCard({ title, url, date, id, onDelete }) {
         <Link href={`/evaluation/${id}`} passHref>
           <StyledAnchor>Evaluation</StyledAnchor>
         </Link>
-        <Link href={`/create/${id}`} passHref>
+        <Link href={`/edit/${id}`} passHref>
           <StyledAnchor>Edit</StyledAnchor>
         </Link>
         <StyledButton onClick={onDelete}>Delete</StyledButton>
@@ -33,6 +32,7 @@ export default function SurveyCard({ title, url, date, id, onDelete }) {
 const ButtonContainer = styled.section``;
 
 const DisplayLink = styled.section`
+  word-break: break-word;
   border: 1px solid #aaa;
   border-radius: 0.2em;
   background-color: #dedede;
@@ -57,10 +57,9 @@ const StyledSurveyCard = styled.li`
   display: flex;
   flex-direction: column;
   gap: 10px;
-  & h2{
+  & h2 {
     margin-bottom: 0;
   }
-
 `;
 const StyledAnchor = styled.a`
   all: unset;
