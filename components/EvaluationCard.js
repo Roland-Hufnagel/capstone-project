@@ -35,6 +35,7 @@ const StyledEvaluationCard = styled.li`
   padding: 0.5em;
   & h2 {
     text-align: center;
+    word-break: break-word;
   }
   & p {
     word-break: break-word;
