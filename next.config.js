@@ -6,5 +6,16 @@ const nextConfig = {
     styledComponents: true,
   },
 };
-
-module.exports = nextConfig;
+module.exports = {
+  images: {
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "avatars.githubusercontent.com",
+        port: "",
+        pathname: "/**",
+      },
+    ],
+  },
+};
+//module.exports = nextConfig;
