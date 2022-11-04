@@ -14,16 +14,17 @@ export default async function handler(req, res) {
   await dbConnect();
   if (req.method === "DELETE") {
     const survey = await SurveyModel.findByIdAndDelete(id);
-    return res
-      .status(200)
-      .json({ message: "Survey deleted", deletedId: survey.id });
+    res.status(200).json({ message: "Survey deleted", deletedId: survey.id });
+    return;
   } else if (req.method === "PATCH") {
     const postData = JSON.parse(request.body);
     const newSurvey = await SurveyModel.findByIdAndUpdate(id, postData);
-    return res
+    res
       .status(200)
       .json({ message: "Survey updated", updatedId: newSurvey.id });
+    return;
   } else {
-    return res.status(405).json({ message: "HTTP method not allowed" });
+    res.status(405).json({ message: "HTTP method not allowed" });
+    return;
   }
 }

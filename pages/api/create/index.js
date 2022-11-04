@@ -18,10 +18,12 @@ export default async function handler(req, res) {
     await SurveyModel.findByIdAndUpdate(newSurvey.id, {
       url: newSurvey.url + newSurvey.id,
     });
-    return res
+    res
       .status(201)
       .json({ message: "Survey created", createdId: newSurvey.id });
+    return;
   } else {
-    return res.status(405).json({ message: "HTTP Method not allowed" });
+    res.status(405).json({ message: "HTTP Method not allowed" });
+    return;
   }
 }
