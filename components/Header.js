@@ -1,17 +1,22 @@
 import styled from "styled-components";
 import Image from "next/image";
 import LoginArea from "./LoginArea";
+import Link from "next/link";
 
 export default function Header() {
   return (
     <StyledHeader>
-      <Image
-        src="/img/mogen.png"
-        alt="lots of feedback"
-        layout="fixed"
-        width={65}
-        height={65}
-      />
+      <Link href="/surveys" passHref>
+        <a>
+          <Image
+            src="/img/mogen.png"
+            alt="lots of feedback"
+            layout="fixed"
+            width={65}
+            height={65}
+          />
+        </a>
+      </Link>
 
       <LoginArea />
     </StyledHeader>

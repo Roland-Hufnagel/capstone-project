@@ -38,6 +38,7 @@ const StyledArea = styled.section`
   display: grid;
   grid-template-columns: 1fr auto;
   grid-template-rows: 1fr 1fr;
+  gap: 0 20px;
   font-size: 0.8em;
 `;
 const MyButton = styled.button`

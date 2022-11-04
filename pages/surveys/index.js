@@ -5,7 +5,8 @@ import { getAllSurveysByOwner } from "../../services/surveyService";
 import AddButton from "../../components/Buttons/AddButton";
 import { authOptions } from "../api/auth/[...nextauth]";
 import { unstable_getServerSession } from "next-auth";
-
+import { PrimaryButton } from "../../components/Buttons/PrimaryButton";
+import { TbPlus } from "react-icons/tb";
 export async function getServerSideProps(context) {
   const session = await unstable_getServerSession(
     context.req,
@@ -49,11 +50,13 @@ export default function Surveys({ surveys }) {
       <StyledSurveyList>
         <StyledContainer>
           <h2>My Surveys:</h2>
-          <AddButton
-            onClick={() => {
+          
+          <PrimaryButton onClick={() => {
               router.push("/create");
-            }}
-          />
+            }}>
+            <TbPlus />
+            New
+          </PrimaryButton>
         </StyledContainer>
         {JSON.parse(surveys).map((survey, index) => (
           <SurveyCard

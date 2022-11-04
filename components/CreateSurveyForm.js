@@ -5,6 +5,10 @@ import AddButton from "./Buttons/AddButton";
 import DeleteButton from "./Buttons/DeleteButton";
 import Preview from "./Preview";
 import { nanoid } from "nanoid";
+import { FiSave, FiPlusCircle } from "react-icons/fi";
+import { ImCancelCircle } from "react-icons/im";
+import { PrimaryButton } from "./Buttons/PrimaryButton";
+
 export default function CreateSurveyForm({
   title,
   questions,
@@ -75,7 +79,7 @@ export default function CreateSurveyForm({
 
   return (
     <Container>
-      <h2>Create your personal survey:</h2>
+      <h2>Create your survey here:</h2>
       <form onSubmit={handleSubmit}>
         <input
           type="text"
@@ -127,9 +131,24 @@ export default function CreateSurveyForm({
             <Preview title={question.title} type={question.type} />
           </QuestionWrapper>
         ))}
-        <AddButton onClick={handleAdd} />
+
+        <PrimaryButton onClick={handleAdd}>
+          <FiPlusCircle />
+          New Question
+        </PrimaryButton>
         <hr />
-        <SubmitButton type="submit">Save</SubmitButton>
+        <PrimaryButton type="submit">
+          <FiSave />
+          Save
+        </PrimaryButton>
+        <PrimaryButton style={{backgroundColor: '#FF5A33'}}
+          onClick={() => {
+            router.push("/surveys");
+          }}
+        >
+          <ImCancelCircle />
+          Cancel
+        </PrimaryButton>
       </form>
     </Container>
   );
@@ -138,8 +157,9 @@ export default function CreateSurveyForm({
 const QuestionWrapper = styled.section`
   position: relative;
   display: grid;
-  gap: 1%;
-  grid-template-columns: 65% 26% 7%;
+  gap: 5px;
+  grid-template-columns: auto 100px 40px;
+
   word-break: break-word;
   & input[type="radio"] {
     margin-left: 20px;
