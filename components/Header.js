@@ -6,7 +6,7 @@ import Link from "next/link";
 export default function Header() {
   return (
     <StyledHeader>
-      <Link href="/surveys" passHref>
+      <Link href="/" passHref>
         <a>
           <Image
             src="/img/mogen.png"
