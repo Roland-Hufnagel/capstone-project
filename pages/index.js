@@ -1,9 +1,7 @@
 import Head from "next/head";
 import Link from "next/link";
 import styled from "styled-components";
-import { useSession, signIn, signOut } from "next-auth/react";
-import LoginButton from "../components/Buttons/LoginButton";
-import Image from "next/image";
+import { useSession} from "next-auth/react";
 export default function Home() {
   const { data: session } = useSession();
   return (

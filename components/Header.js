@@ -1,36 +1,19 @@
 import styled from "styled-components";
 import Image from "next/image";
-import LoginButton from "./Buttons/LoginButton";
+import LoginArea from "./LoginArea";
 
 export default function Header() {
   return (
     <StyledHeader>
-      <span>
-        <Image
-          src="/img/mogen.png"
-          alt="lots of feedback"
-          layout="fixed"
-          width={65}
-          height={65}
-        />
-        <Image
-          src="/img/mogen.png"
-          alt="lots of feedback"
-          layout="fixed"
-          width={65}
-          height={65}
-        />
-        <Image
-          src="/img/mogen.png"
-          alt="lots of feedback"
-          layout="fixed"
-          width={65}
-          height={65}
-        />
-      </span>
-      <span>
-        <LoginButton />
-      </span>
+      <Image
+        src="/img/mogen.png"
+        alt="lots of feedback"
+        layout="fixed"
+        width={65}
+        height={65}
+      />
+
+      <LoginArea />
     </StyledHeader>
   );
 }
