@@ -3,8 +3,9 @@ import { createGlobalStyle } from "styled-components";
 const GlobalStyle = createGlobalStyle`
       
       :root {
-          --text-primary: #0c2c4d;
-          --background-primary: #edf0f5;
+            --myblue: #00f;
+            --text-primary: #0c2c4d;
+            --background-primary: #edf0f5;
       }
 
 /* bungee-outline-regular - latin */
