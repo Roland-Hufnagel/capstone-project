@@ -17,7 +17,7 @@ export default async function handler(req, res) {
     res.status(200).json({ message: "Survey deleted", deletedId: survey.id });
     return;
   } else if (req.method === "PATCH") {
-    const postData = JSON.parse(request.body);
+    const postData = JSON.parse(req.body);
     const newSurvey = await SurveyModel.findByIdAndUpdate(id, postData);
     res
       .status(200)
