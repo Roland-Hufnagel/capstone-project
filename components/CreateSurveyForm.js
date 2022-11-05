@@ -141,7 +141,7 @@ export default function CreateSurveyForm({
           <FiSave />
           Save
         </PrimaryButton>
-        <PrimaryButton style={{backgroundColor: '#FF5A33'}}
+        <PrimaryButton secondary color="#FF5A33"
           onClick={() => {
             router.push("/surveys");
           }}
