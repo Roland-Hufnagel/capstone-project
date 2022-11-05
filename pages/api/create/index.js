@@ -15,9 +15,9 @@ export default async function handler(req, res) {
     const postData = JSON.parse(req.body);
     postData.owner = session.user.email;
     const newSurvey = await SurveyModel.create(postData);
-    const newURL = newSurvey.url + newSurvey.id;
+    let newURL = newSurvey.url + newSurvey.id;
     if (!newURL.startsWith("localhost")) {
-      newURL = "https//www." + newURL;
+      newURL = "https://www." + newURL;
     }
     await SurveyModel.findByIdAndUpdate(newSurvey.id, {
       url: newURL,
