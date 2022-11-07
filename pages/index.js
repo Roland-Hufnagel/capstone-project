@@ -21,7 +21,7 @@ export default function Home() {
 
       {session && (
         <>
-          <PrimaryButton
+          <PrimaryButton bg="#9BD77C"
             onClick={() => {
               router.push("/create");
             }}
@@ -29,7 +29,7 @@ export default function Home() {
             <FiPlusCircle />
             Create a new Survey
           </PrimaryButton>
-          <PrimaryButton
+          <PrimaryButton bg="#9BD77C"
             onClick={() => {
               router.push("/surveys");
             }}

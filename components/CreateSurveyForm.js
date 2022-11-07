@@ -132,16 +132,16 @@ export default function CreateSurveyForm({
           </QuestionWrapper>
         ))}
 
-        <PrimaryButton onClick={handleAdd}>
+        <PrimaryButton bg="#9BD77C" onClick={handleAdd}>
           <FiPlusCircle />
           New Question
         </PrimaryButton>
         <hr />
-        <PrimaryButton type="submit">
+        <PrimaryButton bg="#9BD77C" type="submit">
           <FiSave />
           Save
         </PrimaryButton>
-        <PrimaryButton secondary color="#FF5A33"
+        <PrimaryButton bg="#E5586A" color="#eee" 
           onClick={() => {
             router.push("/surveys");
           }}

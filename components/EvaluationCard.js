@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import Chart from "./Chart";
 
 export default function EvaluationCard({ question, type, answers }) {
   function count(param) {
@@ -14,8 +15,12 @@ export default function EvaluationCard({ question, type, answers }) {
       <h2>{question}</h2>
       {type === "yes/no" && (
         <>
-          <p>Yes: {count("Yes")}</p>
-          <p>No: {count("No")}</p>
+          <Chart
+            data={[
+              { name: "Yes", value: count("Yes") },
+              { name: "No", value: count("No") },
+            ]}
+          />
         </>
       )}
       {type === "text" && (

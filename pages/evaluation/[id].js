@@ -4,7 +4,9 @@ import Link from "next/link";
 import { getSurveyById } from "../../services/surveyService";
 import { authOptions } from "../api/auth/[...nextauth]";
 import { unstable_getServerSession } from "next-auth";
-
+import { PrimaryButton } from "../../components/Buttons/PrimaryButton";
+import { useRouter } from "next/router";
+import { IoMdArrowRoundBack } from "react-icons/io";
 export async function getServerSideProps(context) {
   const session = await unstable_getServerSession(
     context.req,
@@ -29,6 +31,7 @@ export async function getServerSideProps(context) {
 }
 
 export default function Evaluation({ title, date, questions }) {
+  const router = useRouter();
   return (
     <StyledEvaluation>
       <h2>{title}</h2>
@@ -43,9 +46,13 @@ export default function Evaluation({ title, date, questions }) {
           />
         ))}
       </StyledEvaluationList>
-      <Link href="../surveys" passHref>
-        <StyledAnchor>Back to overview</StyledAnchor>
-      </Link>
+      <PrimaryButton
+        bg="#9BD77C"
+        color="101828"
+        onClick={() => router.push(`/surveys`)}
+      ><IoMdArrowRoundBack/>
+        My Surveys
+      </PrimaryButton>
     </StyledEvaluation>
   );
 }

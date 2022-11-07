@@ -51,7 +51,7 @@ export default function Surveys({ surveys }) {
         <StyledContainer>
           <h2>My Surveys:</h2>
           
-          <PrimaryButton onClick={() => {
+          <PrimaryButton bg="#9BD77C" color="101828" onClick={() => {
               router.push("/create");
             }}>
             <TbPlus />

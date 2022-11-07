@@ -1,8 +1,13 @@
 import styled from "styled-components";
 import Link from "next/link";
 import { MdOutlineContentCopy } from "react-icons/md";
-
+import { AiOutlinePieChart } from "react-icons/ai";
+import { PrimaryButton } from "./Buttons/PrimaryButton";
+import { RiDeleteBin6Line } from "react-icons/ri";
+import { FiEdit } from "react-icons/fi";
+import { useRouter } from "next/router";
 export default function SurveyCard({ title, url, date, id, onDelete }) {
+  const router = useRouter();
   return (
     <StyledSurveyCard>
       <h2>{title}</h2>
@@ -18,13 +23,26 @@ export default function SurveyCard({ title, url, date, id, onDelete }) {
         </button>
       </DisplayLink>
       <ButtonContainer>
-        <Link href={`/evaluation/${id}`} passHref>
-          <StyledAnchor>Evaluation</StyledAnchor>
-        </Link>
-        <Link href={`/edit/${id}`} passHref>
-          <StyledAnchor>Edit</StyledAnchor>
-        </Link>
-        <StyledButton onClick={onDelete}>Delete</StyledButton>
+        <PrimaryButton
+          bg="#9BD77C"
+          color="#101828"
+          onClick={() => router.push(`/evaluation/${id}`)}
+        >
+          <AiOutlinePieChart />
+          Evaluation
+        </PrimaryButton>
+        <PrimaryButton
+          bg="#5EB6FF"
+          color="#101828"
+          onClick={() => router.push(`/edit/${id}`)}
+        >
+          <FiEdit />
+          Edit
+        </PrimaryButton>
+        <PrimaryButton bg="#E5586A" color="#eee" onClick={onDelete}>
+          <RiDeleteBin6Line />
+          Delete
+        </PrimaryButton>
       </ButtonContainer>
     </StyledSurveyCard>
   );
