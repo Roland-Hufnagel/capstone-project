@@ -19,17 +19,17 @@ export async function getSurveyById(id) {
   }
 }
 
-export async function getAllSurveys() {
+export async function getAllSurveysByOwner(owner) {
   await dbConnect();
   try {
-    const surveys = await SurveyModel.find().sort({ date: -1 });
+    const surveys = await SurveyModel.find({ owner: owner}).sort({ date: -1 });
     const sanitizedSurveys = surveys.map((survey) => ({
       id: survey.id,
       title: survey.title,
       description: survey.description,
       date: survey.date.toDateString(),
       url: survey.url,
-      questions: JSON.parse(JSON.stringify(survey.questions)),
+      questions: survey.questions,
     }));
     return sanitizedSurveys;
   } catch (error) {

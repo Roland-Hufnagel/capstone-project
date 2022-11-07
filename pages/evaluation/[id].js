@@ -2,8 +2,23 @@ import EvaluationCard from "../../components/EvaluationCard";
 import styled from "styled-components";
 import Link from "next/link";
 import { getSurveyById } from "../../services/surveyService";
+import { authOptions } from "../api/auth/[...nextauth]";
+import { unstable_getServerSession } from "next-auth";
 
 export async function getServerSideProps(context) {
+  const session = await unstable_getServerSession(
+    context.req,
+    context.res,
+    authOptions
+  );
+  if (!session) {
+    return {
+      redirect: {
+        destination: "/",
+        permanent: false,
+      },
+    };
+  }
   const { id } = context.params;
   const survey = await getSurveyById(id);
   return {

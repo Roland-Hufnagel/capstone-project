@@ -9,10 +9,10 @@ export default async function handler(request, response) {
     await SurveyModel.findByIdAndUpdate(id, {
       questions: postData,
     });
-    return response
-      .status(200)
-      .json({ message: "Survey updated", updatedId: id });
+    response.status(200).json({ message: "Survey updated", updatedId: id });
+    return;
   } else {
-    return response.status(405).json({ message: "HTTP method not allowed" });
+    response.status(405).json({ message: "HTTP method not allowed" });
+    return;
   }
 }

@@ -11,13 +11,13 @@ export default function DeleteButton({ onClick }) {
 const MyButton = styled.button`
   all: unset;
   border: none;
-  color: #e3371e;
+  color: #FF5A33;
   &:hover {
     cursor: pointer;
     color: #a52502;
   }
 `;
 const MyIcon = styled(TiDeleteOutline)`
-  width: 40px;
-  height: 40px;
+  width: 100%;
+  height: 100%;
 `;

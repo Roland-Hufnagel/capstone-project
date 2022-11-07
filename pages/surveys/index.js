@@ -1,11 +1,28 @@
 import SurveyCard from "../../components/SurveyCard";
 import styled from "styled-components";
 import { useRouter } from "next/router";
-import { getAllSurveys } from "../../services/surveyService";
+import { getAllSurveysByOwner } from "../../services/surveyService";
 import AddButton from "../../components/Buttons/AddButton";
-
+import { authOptions } from "../api/auth/[...nextauth]";
+import { unstable_getServerSession } from "next-auth";
+import { PrimaryButton } from "../../components/Buttons/PrimaryButton";
+import { TbPlus } from "react-icons/tb";
 export async function getServerSideProps(context) {
-  const surveys = await getAllSurveys();
+  const session = await unstable_getServerSession(
+    context.req,
+    context.res,
+    authOptions
+  );
+  if (!session) {
+    return {
+      redirect: {
+        destination: "/",
+        permanent: false,
+      },
+    };
+  }
+
+  const surveys = await getAllSurveysByOwner(session.user.email);
 
   return {
     props: {
@@ -32,12 +49,14 @@ export default function Surveys({ surveys }) {
     <>
       <StyledSurveyList>
         <StyledContainer>
-          <AddButton
-            onClick={() => {
-              router.push("/create");
-            }}
-          />
           <h2>My Surveys:</h2>
+          
+          <PrimaryButton onClick={() => {
+              router.push("/create");
+            }}>
+            <TbPlus />
+            New
+          </PrimaryButton>
         </StyledContainer>
         {JSON.parse(surveys).map((survey, index) => (
           <SurveyCard
@@ -53,10 +72,11 @@ export default function Surveys({ surveys }) {
     </>
   );
 }
+
 const StyledContainer = styled.section`
   display: flex;
-  gap: 30px;
-  justify-content: center;
+  justify-content: space-between;
+  align-items: center;
 `;
 const StyledSurveyList = styled.ul`
   all: unset;

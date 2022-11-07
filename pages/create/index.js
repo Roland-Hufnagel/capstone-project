@@ -1,8 +1,23 @@
 import { useRouter } from "next/router";
 import CreateSurveyForm from "../../components/CreateSurveyForm";
 import { nanoid } from "nanoid";
+import { authOptions } from "../api/auth/[...nextauth]";
+import { unstable_getServerSession } from "next-auth";
 
 export async function getServerSideProps(context) {
+  const session = await unstable_getServerSession(
+    context.req,
+    context.res,
+    authOptions
+  );
+  if (!session) {
+    return {
+      redirect: {
+        destination: "/",
+        permanent: false,
+      },
+    };
+  }
   const { req } = context;
   const host = req.headers.host;
   return { props: { host: host } };

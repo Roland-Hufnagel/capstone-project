@@ -1,18 +1,30 @@
 import dbConnect from "../../../lib/dbConnect";
 import SurveyModel from "../../../models/SurveyModel";
+import { unstable_getServerSession } from "next-auth/next";
+import { authOptions } from "../auth/[...nextauth]";
 
-export default async function handler(request, response) {
-  if (request.method === "POST") {
+export default async function handler(req, res) {
+  const session = await unstable_getServerSession(req, res, authOptions);
+  if (!session) {
+    res.send({ errror: "You must be signed in!" });
+    return;
+  }
+
+  if (req.method === "POST") {
     await dbConnect();
-    const postData = JSON.parse(request.body);
+    const postData = JSON.parse(req.body);
+    postData.owner = session.user.email;
     const newSurvey = await SurveyModel.create(postData);
+
     await SurveyModel.findByIdAndUpdate(newSurvey.id, {
       url: newSurvey.url + newSurvey.id,
     });
-    return response
+    res
       .status(201)
       .json({ message: "Survey created", createdId: newSurvey.id });
+    return;
   } else {
-    return response.status(405).json({ message: "HTTP Method not allowed" });
+    res.status(405).json({ message: "HTTP Method not allowed" });
+    return;
   }
 }

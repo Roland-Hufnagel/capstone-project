@@ -1,21 +1,30 @@
 import dbConnect from "../../../lib/dbConnect";
 import SurveyModel from "../../../models/SurveyModel";
+import { unstable_getServerSession } from "next-auth/next";
+import { authOptions } from "../auth/[...nextauth]";
 
-export default async function handler(request, response) {
-  const { id } = request.query;
+export default async function handler(req, res) {
+  const session = await unstable_getServerSession(req, res, authOptions);
+  if (!session) {
+    res.send({ errror: "You must be signed in!" });
+    return;
+  }
+
+  const { id } = req.query;
   await dbConnect();
-  if (request.method === "DELETE") {
+  if (req.method === "DELETE") {
     const survey = await SurveyModel.findByIdAndDelete(id);
-    return response
-      .status(200)
-      .json({ message: "Survey deleted", deletedId: id });
-  } else if (request.method === "PATCH") {
-    const postData = JSON.parse(request.body);
+    res.status(200).json({ message: "Survey deleted", deletedId: survey.id });
+    return;
+  } else if (req.method === "PATCH") {
+    const postData = JSON.parse(req.body);
     const newSurvey = await SurveyModel.findByIdAndUpdate(id, postData);
-    return response
+    res
       .status(200)
       .json({ message: "Survey updated", updatedId: newSurvey.id });
+    return;
   } else {
-    return response.status(405).json({ message: "HTTP method not allowed" });
+    res.status(405).json({ message: "HTTP method not allowed" });
+    return;
   }
 }
