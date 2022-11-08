@@ -36,11 +36,14 @@ h1 {
 }
 h2 {
     text-align: center;
+    margin: 0.5em;
 }
 
-      * {
-          box-sizing: border-box;
-      }
+
+* {
+  
+  box-sizing: border-box;
+}
  
       body {
           font-family: 'Noto Sans', sans-serif;

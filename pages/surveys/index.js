@@ -2,7 +2,6 @@ import SurveyCard from "../../components/SurveyCard";
 import styled from "styled-components";
 import { useRouter } from "next/router";
 import { getAllSurveysByOwner } from "../../services/surveyService";
-import AddButton from "../../components/Buttons/AddButton";
 import { authOptions } from "../api/auth/[...nextauth]";
 import { unstable_getServerSession } from "next-auth";
 import { PrimaryButton } from "../../components/Buttons/PrimaryButton";
@@ -26,7 +25,7 @@ export async function getServerSideProps(context) {
 
   return {
     props: {
-      surveys: JSON.stringify(surveys),
+      surveys: surveys,
     },
   };
 }
@@ -51,16 +50,16 @@ export default function Surveys({ surveys }) {
         <StyledContainer>
           <h2>My Surveys:</h2>
           
-          <PrimaryButton onClick={() => {
+          <PrimaryButton bg="#9BD77C" color="101828" onClick={() => {
               router.push("/create");
             }}>
             <TbPlus />
             New
           </PrimaryButton>
         </StyledContainer>
-        {JSON.parse(surveys).map((survey, index) => (
+        {surveys.map((survey) => (
           <SurveyCard
-            key={index}
+            key={survey.id}
             title={survey.title}
             url={survey.url}
             date={survey.date}

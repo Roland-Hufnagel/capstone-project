@@ -21,7 +21,7 @@ export default function Home() {
 
       {session && (
         <>
-          <PrimaryButton
+          <PrimaryButton bg="#9BD77C"
             onClick={() => {
               router.push("/create");
             }}
@@ -29,7 +29,7 @@ export default function Home() {
             <FiPlusCircle />
             Create a new Survey
           </PrimaryButton>
-          <PrimaryButton
+          <PrimaryButton bg="#9BD77C"
             onClick={() => {
               router.push("/surveys");
             }}
@@ -37,13 +37,6 @@ export default function Home() {
             <AiOutlinePieChart />
             Explore your Surveys
           </PrimaryButton>
-          {/* <Link href="/create" passHref>
-            <StyledAnchor>Start a new Survey</StyledAnchor>
-          </Link>
-          <br />
-          <Link href="/surveys" passHref>
-            <StyledAnchor>Explore your Surveys</StyledAnchor>
-          </Link> */}
         </>
       )}
     </div>

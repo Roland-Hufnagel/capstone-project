@@ -22,7 +22,7 @@ export async function getSurveyById(id) {
 export async function getAllSurveysByOwner(owner) {
   await dbConnect();
   try {
-    const surveys = await SurveyModel.find({ owner: owner}).sort({ date: -1 });
+    const surveys = await SurveyModel.find({ owner: owner }).sort({ date: -1 });
     const sanitizedSurveys = surveys.map((survey) => ({
       id: survey.id,
       title: survey.title,
@@ -31,7 +31,7 @@ export async function getAllSurveysByOwner(owner) {
       url: survey.url,
       questions: survey.questions,
     }));
-    return sanitizedSurveys;
+    return JSON.parse(JSON.stringify(sanitizedSurveys));
   } catch (error) {
     console.error(error);
   }

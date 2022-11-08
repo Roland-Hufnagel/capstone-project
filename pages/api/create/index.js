@@ -17,7 +17,7 @@ export default async function handler(req, res) {
     const newSurvey = await SurveyModel.create(postData);
 
     await SurveyModel.findByIdAndUpdate(newSurvey.id, {
-      url: newSurvey.url + newSurvey.id,
+      url: "http://" + newSurvey.url + newSurvey.id,
     });
     res
       .status(201)

@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { useRouter } from "next/router";
 import styled from "styled-components";
-import AddButton from "./Buttons/AddButton";
 import DeleteButton from "./Buttons/DeleteButton";
 import Preview from "./Preview";
 import { nanoid } from "nanoid";
@@ -97,7 +96,7 @@ export default function CreateSurveyForm({
         <hr />
 
         {survey.questions.map((question, index) => (
-          <QuestionWrapper key={index}>
+          <QuestionWrapper key={question.id}>
             <input
               onKeyPress={(e) => {
                 // this prevents a submit when hitting Enter!
@@ -132,16 +131,16 @@ export default function CreateSurveyForm({
           </QuestionWrapper>
         ))}
 
-        <PrimaryButton onClick={handleAdd}>
+        <PrimaryButton bg="#9BD77C" onClick={handleAdd}>
           <FiPlusCircle />
           New Question
         </PrimaryButton>
         <hr />
-        <PrimaryButton type="submit">
+        <PrimaryButton bg="#9BD77C" type="submit">
           <FiSave />
           Save
         </PrimaryButton>
-        <PrimaryButton secondary color="#FF5A33"
+        <PrimaryButton bg="#E5586A" color="#eee" 
           onClick={() => {
             router.push("/surveys");
           }}
