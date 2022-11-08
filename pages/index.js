@@ -37,13 +37,6 @@ export default function Home() {
             <AiOutlinePieChart />
             Explore your Surveys
           </PrimaryButton>
-          {/* <Link href="/create" passHref>
-            <StyledAnchor>Start a new Survey</StyledAnchor>
-          </Link>
-          <br />
-          <Link href="/surveys" passHref>
-            <StyledAnchor>Explore your Surveys</StyledAnchor>
-          </Link> */}
         </>
       )}
     </div>

@@ -41,9 +41,9 @@ export default function Survey({ id, title, date, questions }) {
       <h2>{title}</h2>
       <p>{date}</p>
       <ul>
-        {questions.map((question, index) => (
+        {questions.map((question) => (
           <QuestionCard
-            key={index}
+            key={question.id}
             id={question.id}
             question={question.title}
             type={question.type}

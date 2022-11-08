@@ -37,9 +37,9 @@ export default function Evaluation({ title, date, questions }) {
       <h2>{title}</h2>
       <p>{date}</p>
       <StyledEvaluationList>
-        {questions.map((question, index) => (
+        {questions.map((question) => (
           <EvaluationCard
-            key={index}
+            key={question.id}
             question={question.title}
             type={question.type}
             answers={question.answers}

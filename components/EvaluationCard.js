@@ -1,7 +1,8 @@
 import styled from "styled-components";
 import Chart from "./Chart";
-
+import { nanoid } from "nanoid";
 export default function EvaluationCard({ question, type, answers }) {
+  
   function countAnswers(param) {
     return answers.filter((answer) => answer === param).length;
   }
@@ -13,16 +14,16 @@ export default function EvaluationCard({ question, type, answers }) {
         <>
           <Chart
             data={[
-              { name: "Yes", value: countAnswers("Yes") },
-              { name: "No", value: countAnswers("No") },
+              { id: nanoid(), name: "Yes", value: countAnswers("Yes") },
+              { id: nanoid(), name: "No", value: countAnswers("No") },
             ]}
           />
         </>
       )}
       {type === "text" && (
         <>
-          {answers.map((answer, index) => (
-            <p key={index}>{answer}</p>
+          {answers.map((answer) => (
+            <p key={answer.id}>{answer}</p>
           ))}
         </>
       )}

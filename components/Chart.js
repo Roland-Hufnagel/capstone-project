@@ -1,9 +1,4 @@
-import {
-  Legend,
-  PieChart,
-  Pie,
-  Cell,
-} from "recharts";
+import { Legend, PieChart, Pie, Cell } from "recharts";
 import styled from "styled-components";
 
 const COLORS = ["#9BD77C", "#E5586A"];
@@ -16,7 +11,7 @@ const renderCustomizedLabel = ({
   innerRadius,
   outerRadius,
   percent,
-  index
+  index,
 }) => {
   const radius = innerRadius + (outerRadius - innerRadius) * 0.5;
   const x = cx + radius * Math.cos(-midAngle * RADIAN);
@@ -35,13 +30,11 @@ const renderCustomizedLabel = ({
   );
 };
 
-
 export default function Chart({ data }) {
   return (
     <>
-      
       <ResponsiveContainer width="100%" height="100%">
-        <PieChart width={200} height={200} >
+        <PieChart width={200} height={200}>
           <Pie
             data={data}
             cx="50%"
@@ -53,36 +46,30 @@ export default function Chart({ data }) {
             dataKey="value"
           >
             {data.map((entry, index) => (
-              <Cell
-                key={`cell-${index}`}
-                fill={COLORS[index % COLORS.length]}
-              />
+              <Cell key={`cell-${data.id}`} fill={COLORS[index % COLORS.length]} />
             ))}
           </Pie>
-          <Legend/>
+          <Legend />
         </PieChart>
-        <table >
-            <tr>
-                <td>Yes:</td>
-                <td>{data[0].value}</td>
-            </tr>
-            <tr>
-                <td>No:</td>
-                <td>{data[1].value}</td>
-            </tr>
-            <tr>
-                <td>Total:</td>
-                <td>{data[0].value + data[1].value}</td>
-            </tr>
-
+        <table>
+          <tr>
+            <td>Yes:</td>
+            <td>{data[0].value}</td>
+          </tr>
+          <tr>
+            <td>No:</td>
+            <td>{data[1].value}</td>
+          </tr>
+          <tr>
+            <td>Total:</td>
+            <td>{data[0].value + data[1].value}</td>
+          </tr>
         </table>
       </ResponsiveContainer>
     </>
   );
 }
 const ResponsiveContainer = styled.section`
-  
   display: flex;
   gap: 20px;
-
 `;

@@ -3,6 +3,7 @@ import CreateSurveyForm from "../../components/CreateSurveyForm";
 import { nanoid } from "nanoid";
 import { authOptions } from "../api/auth/[...nextauth]";
 import { unstable_getServerSession } from "next-auth";
+import { RiContactsBookLine } from "react-icons/ri";
 
 export async function getServerSideProps(context) {
   const session = await unstable_getServerSession(
