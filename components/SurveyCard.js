@@ -13,7 +13,7 @@ export default function SurveyCard({ title, url, date, id, onDelete }) {
       <h2>{title}</h2>
       <time>{date}</time>
       <DisplayLink>
-        <Link href={url} passHref><a>{url}</a></Link>
+        <Link href={url} passHref><a target="_blank">{url}</a></Link>
         <button
           onClick={() => {
             navigator.clipboard.writeText(url);
