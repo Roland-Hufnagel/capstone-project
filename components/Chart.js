@@ -46,7 +46,7 @@ export default function Chart({ data }) {
             dataKey="value"
           >
             {data.map((entry, index) => (
-              <Cell key={`cell-${data.id}`} fill={COLORS[index % COLORS.length]} />
+              <Cell key={`cell-${entry.name}`} fill={COLORS[index % COLORS.length]} />
             ))}
           </Pie>
           <Legend />
