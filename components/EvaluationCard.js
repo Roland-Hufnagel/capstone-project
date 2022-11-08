@@ -2,12 +2,8 @@ import styled from "styled-components";
 import Chart from "./Chart";
 
 export default function EvaluationCard({ question, type, answers }) {
-  function count(param) {
-    if (param === "Yes") {
-      return answers.filter((answer) => answer === "Yes").length;
-    } else if (param === "No") {
-      return answers.filter((answer) => answer === "No").length;
-    }
+  function countAnswers(param) {
+    return answers.filter((answer) => answer === param).length;
   }
 
   return (
@@ -17,8 +13,8 @@ export default function EvaluationCard({ question, type, answers }) {
         <>
           <Chart
             data={[
-              { name: "Yes", value: count("Yes") },
-              { name: "No", value: count("No") },
+              { name: "Yes", value: countAnswers("Yes") },
+              { name: "No", value: countAnswers("No") },
             ]}
           />
         </>
