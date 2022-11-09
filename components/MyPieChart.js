@@ -30,7 +30,7 @@ const renderCustomizedLabel = ({
   );
 };
 
-export default function Chart({ data }) {
+export default function MyPieChart({ data }) {
   return (
     <>
       <ResponsiveContainer width="100%" height="100%">
@@ -46,24 +46,29 @@ export default function Chart({ data }) {
             dataKey="value"
           >
             {data.map((entry, index) => (
-              <Cell key={`cell-${entry.name}`} fill={COLORS[index % COLORS.length]} />
+              <Cell
+                key={`cell-${entry.name}`}
+                fill={COLORS[index % COLORS.length]}
+              />
             ))}
           </Pie>
           <Legend />
         </PieChart>
         <table>
-          <tr>
-            <td>Yes:</td>
-            <td>{data[0].value}</td>
-          </tr>
-          <tr>
-            <td>No:</td>
-            <td>{data[1].value}</td>
-          </tr>
-          <tr>
-            <td>Total:</td>
-            <td>{data[0].value + data[1].value}</td>
-          </tr>
+          <tbody>
+            <tr>
+              <td>Yes:</td>
+              <td>{data[0].value}</td>
+            </tr>
+            <tr>
+              <td>No:</td>
+              <td>{data[1].value}</td>
+            </tr>
+            <tr>
+              <td>Total:</td>
+              <td>{data[0].value + data[1].value}</td>
+            </tr>
+          </tbody>
         </table>
       </ResponsiveContainer>
     </>
