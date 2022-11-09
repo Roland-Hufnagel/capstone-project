@@ -1,5 +1,4 @@
 import React, { PureComponent } from "react";
-import styled from "styled-components";
 import {
   BarChart,
   Bar,
@@ -13,7 +12,6 @@ import {
 } from "recharts";
 
 export default function MyBarChart({ data }) {
-  console.log(data);
   return (
     <ResponsiveContainer width="100%" height={200}>
       

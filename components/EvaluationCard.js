@@ -8,38 +8,35 @@ export default function EvaluationCard({ question, type, answers }) {
   }
 
   return (
-    <>
-      <StyledEvaluationCard>
-        <h2>{question}</h2>
-        {type === "yes/no" && (
-          <MyPieChart
-            data={[
-              { name: "Yes", value: countAnswers("Yes") },
-              { name: "No", value: countAnswers("No") },
-            ]}
-          />
-        )}
-        {type === "text" && (
-          <>
-            {answers.map((answer, index) => (
-              <p key={index}>{answer}</p>
-            ))}
-          </>
-        )}
-        {type === "choice" && (
-          <MyBarChart
-            data={[
-              { name: "1", value: countAnswers("1") },
-              { name: "2", value: countAnswers("2") },
-              { name: "3", value: countAnswers("3") },
-              { name: "4", value: countAnswers("4") },
-              { name: "5", value: countAnswers("5") },
-            ]}
-          />
-        )}
-      </StyledEvaluationCard>
-      
-    </>
+    <StyledEvaluationCard>
+      <h2>{question}</h2>
+      {type === "yes/no" && (
+        <MyPieChart
+          data={[
+            { name: "Yes", value: countAnswers("Yes") },
+            { name: "No", value: countAnswers("No") },
+          ]}
+        />
+      )}
+      {type === "text" && (
+        <>
+          {answers.map((answer, index) => (
+            <p key={index}>{answer}</p>
+          ))}
+        </>
+      )}
+      {type === "choice" && (
+        <MyBarChart
+          data={[
+            { name: "1", value: countAnswers("1") },
+            { name: "2", value: countAnswers("2") },
+            { name: "3", value: countAnswers("3") },
+            { name: "4", value: countAnswers("4") },
+            { name: "5", value: countAnswers("5") },
+          ]}
+        />
+      )}
+    </StyledEvaluationCard>
   );
 }
 const StyledEvaluationCard = styled.li`

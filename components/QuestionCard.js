@@ -22,10 +22,8 @@ export default function QuestionCard({ question, id, type }) {
             <textarea rows="3" maxLength="200" name={id} />
           </>
         )}
-        {type==="choice"&&(
-        
-        
-        <ChoiceContainer>
+        {type === "choice" && (
+          <ChoiceContainer>
             <label for="one">1</label>
             <label for="two">2</label>
             <label for="three">3</label>
@@ -38,16 +36,15 @@ export default function QuestionCard({ question, id, type }) {
             <input type="radio" name={id} id="four" value="4" />
             <input type="radio" name={id} id="five" value="5" />
           </ChoiceContainer>
-      
         )}
       </fieldset>
     </StyledQuestionCard>
   );
 }
-const ChoiceContainer = styled.section`  
+const ChoiceContainer = styled.section`
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
-  grid-template-rows: 1fr ;
+  grid-template-rows: 1fr;
   justify-items: center;
 `;
 const StyledQuestionCard = styled.li`

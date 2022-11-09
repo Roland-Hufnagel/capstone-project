@@ -9,46 +9,44 @@ import { useRouter } from "next/router";
 export default function SurveyCard({ title, url, date, id, onDelete }) {
   const router = useRouter();
   return (
-    <>
-      <StyledSurveyCard>
-        <h2>{title}</h2>
-        <time>{date}</time>
-        <DisplayLink>
-          <Link href={url} passHref>
-            <a target="_blank">{url}</a>
-          </Link>
-          <button
-            onClick={() => {
-              navigator.clipboard.writeText(url);
-            }}
-          >
-            <MdOutlineContentCopy />
-          </button>
-        </DisplayLink>
-        <ButtonContainer>
-          <PrimaryButton
-            bg="#9BD77C"
-            color="#101828"
-            onClick={() => router.push(`/evaluation/${id}`)}
-          >
-            <AiOutlinePieChart />
-            Evaluation
-          </PrimaryButton>
-          <PrimaryButton
-            bg="#5EB6FF"
-            color="#101828"
-            onClick={() => router.push(`/edit/${id}`)}
-          >
-            <FiEdit />
-            Edit
-          </PrimaryButton>
-          <PrimaryButton bg="#E5586A" color="#eee" onClick={onDelete}>
-            <RiDeleteBin6Line />
-            Delete
-          </PrimaryButton>
-        </ButtonContainer>
-      </StyledSurveyCard>
-    </>
+    <StyledSurveyCard>
+      <h2>{title}</h2>
+      <time>{date}</time>
+      <DisplayLink>
+        <Link href={url} passHref>
+          <a target="_blank">{url}</a>
+        </Link>
+        <button
+          onClick={() => {
+            navigator.clipboard.writeText(url);
+          }}
+        >
+          <MdOutlineContentCopy />
+        </button>
+      </DisplayLink>
+      <ButtonContainer>
+        <PrimaryButton
+          bg="#9BD77C"
+          color="#101828"
+          onClick={() => router.push(`/evaluation/${id}`)}
+        >
+          <AiOutlinePieChart />
+          Evaluation
+        </PrimaryButton>
+        <PrimaryButton
+          bg="#5EB6FF"
+          color="#101828"
+          onClick={() => router.push(`/edit/${id}`)}
+        >
+          <FiEdit />
+          Edit
+        </PrimaryButton>
+        <PrimaryButton bg="#E5586A" color="#eee" onClick={onDelete}>
+          <RiDeleteBin6Line />
+          Delete
+        </PrimaryButton>
+      </ButtonContainer>
+    </StyledSurveyCard>
   );
 }
 const ButtonContainer = styled.section``;
