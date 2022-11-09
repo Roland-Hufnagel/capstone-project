@@ -14,7 +14,6 @@ import {
 export default function MyBarChart({ data }) {
   return (
     <ResponsiveContainer width="100%" height={200}>
-      
       <BarChart
         data={data}
         margin={{
@@ -24,11 +23,9 @@ export default function MyBarChart({ data }) {
           bottom: 5,
         }}
       >
-        
         <XAxis dataKey="name" />
         <YAxis />
-        <Tooltip />
-        
+
         <Bar dataKey="value" fill="#9BD77C" />
       </BarChart>
     </ResponsiveContainer>
