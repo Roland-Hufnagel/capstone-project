@@ -97,7 +97,7 @@ export default function CreateSurveyForm({
 
         {survey.questions.map((question, index) => (
           <QuestionWrapper key={question.id}>
-            <input
+            <QuestionInput
               onKeyPress={(e) => {
                 // this prevents a submit when hitting Enter!
                 e.key === "Enter" && e.preventDefault();
@@ -121,6 +121,7 @@ export default function CreateSurveyForm({
               </option>
               <option value="yes/no">Yes/No</option>
               <option value="text">Text</option>
+              <option value="choice">Choice</option>
             </select>
             <DeleteButton
               onClick={() => {
@@ -140,7 +141,9 @@ export default function CreateSurveyForm({
           <FiSave />
           Save
         </PrimaryButton>
-        <PrimaryButton bg="#E5586A" color="#eee" 
+        <PrimaryButton
+          bg="#E5586A"
+          color="#eee"
           onClick={() => {
             router.push("/surveys");
           }}
@@ -152,7 +155,9 @@ export default function CreateSurveyForm({
     </Container>
   );
 }
-
+const QuestionInput = styled.input`
+  width: 100%;
+`;
 const QuestionWrapper = styled.section`
   position: relative;
   display: grid;
@@ -160,10 +165,6 @@ const QuestionWrapper = styled.section`
   grid-template-columns: auto 100px 40px;
 
   word-break: break-word;
-  & input[type="radio"] {
-    margin-left: 20px;
-    margin-right: 10px;
-  }
 `;
 const Container = styled.section`
   padding: 0px;
