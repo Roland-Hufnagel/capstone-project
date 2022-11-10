@@ -3,7 +3,7 @@ import { TiDeleteOutline } from "react-icons/ti";
 
 export default function DeleteButton({ onClick }) {
   return (
-    <MyButton type="button" onClick={onClick}>
+    <MyButton aria-label="delete" type="button" onClick={onClick}>
       <MyIcon />
     </MyButton>
   );

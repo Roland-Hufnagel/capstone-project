@@ -19,22 +19,26 @@ export default function QuestionCard({ question, id, type }) {
         )}
         {type === "text" && (
           <>
-            <textarea rows="3" maxLength="200" name={id} />
+            <textarea
+              rows="3"
+              maxLength="200"
+              name={id}
+              aria-label="Feedback"
+            />
           </>
         )}
         {type === "choice" && (
           <ChoiceContainer>
-            <label for="one">1</label>
-            <label for="two">2</label>
-            <label for="three">3</label>
-            <label for="four">4</label>
-            <label for="five">5</label>
-
-            <input type="radio" name={id} id="one" value="1" />
-            <input type="radio" name={id} id="two" value="2" />
-            <input type="radio" name={id} id="three" value="3" />
-            <input type="radio" name={id} id="four" value="4" />
-            <input type="radio" name={id} id="five" value="5" />
+            <span>1</span>
+            <span>2</span>
+            <span>3</span>
+            <span>4</span>
+            <span>5</span>
+            <input type="radio" aria-label="one" name={id} id="one" value="1" />
+            <input type="radio" aria-label="two" name={id} id="two" value="2" />
+            <input type="radio" aria-label="three" name={id} id="three" value="3" />
+            <input type="radio" aria-label="four" name={id} id="four" value="4" />
+            <input type="radio" aria-label="five" name={id} id="five" value="5" />
           </ChoiceContainer>
         )}
       </fieldset>

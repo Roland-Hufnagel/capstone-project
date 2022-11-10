@@ -1,9 +1,7 @@
 import { useRouter } from "next/router";
 import CreateSurveyForm from "../../components/CreateSurveyForm";
-import { nanoid } from "nanoid";
 import { authOptions } from "../api/auth/[...nextauth]";
 import { unstable_getServerSession } from "next-auth";
-import { RiContactsBookLine } from "react-icons/ri";
 
 export async function getServerSideProps(context) {
   const session = await unstable_getServerSession(
@@ -48,7 +46,7 @@ export default function Create({ host }) {
       url={`${host}/survey/`}
       questions={[
         {
-          id: nanoid(),
+          id: Math.random().toString(),
           title: "",
           type: "",
           answers: [],

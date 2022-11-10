@@ -3,7 +3,6 @@ import { useRouter } from "next/router";
 import styled from "styled-components";
 import DeleteButton from "./Buttons/DeleteButton";
 import Preview from "./Preview";
-import { nanoid } from "nanoid";
 import { FiSave, FiPlusCircle } from "react-icons/fi";
 import { ImCancelCircle } from "react-icons/im";
 import { PrimaryButton } from "./Buttons/PrimaryButton";
@@ -58,7 +57,7 @@ export default function CreateSurveyForm({
     newQuestions.push({
       title: "",
       type: "",
-      id: nanoid(),
+      id: Math.random().toString(),
       answers: [],
     });
     const newSurvey = { ...survey, questions: newQuestions };
@@ -84,6 +83,7 @@ export default function CreateSurveyForm({
           type="text"
           name="title"
           required
+          aria-label="title"
           placeholder="your title"
           style={{ width: "100%" }}
           value={survey.title}
@@ -104,6 +104,7 @@ export default function CreateSurveyForm({
               }}
               maxLength="200"
               type="text"
+              aria-label="question"
               name={`question-${index}`}
               placeholder="your question"
               required
@@ -113,6 +114,7 @@ export default function CreateSurveyForm({
             <select
               name={`type-${index}`}
               required
+              aria-label="type"
               value={question.type}
               onChange={(event) => handleChangeType(index, event)}
             >
@@ -132,7 +134,8 @@ export default function CreateSurveyForm({
           </QuestionWrapper>
         ))}
 
-        <PrimaryButton bg="#9BD77C" onClick={handleAdd}>
+        <PrimaryButton type="button" bg="#9BD77C" onClick={handleAdd} aria-label="add Question">
+          
           <FiPlusCircle />
           New Question
         </PrimaryButton>
@@ -143,7 +146,9 @@ export default function CreateSurveyForm({
         </PrimaryButton>
         <PrimaryButton
           bg="#E5586A"
+          type="button"
           color="#eee"
+          aria-label="cancel"
           onClick={() => {
             router.push("/surveys");
           }}
