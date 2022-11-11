@@ -1,7 +1,7 @@
-import { screen, render, getByLabelText } from "@testing-library/react";
+import { screen, render } from "@testing-library/react";
 import CreateSurveyForm from "./CreateSurveyForm";
 import userEvent from "@testing-library/user-event";
-
+//import nanoid from "../__mocks__/nanoid";
 describe("display SurveyForm", () => {
   it("initial renders a title-input, a question-input, a type-input and four buttons", async () => {
     render(
@@ -34,7 +34,7 @@ describe("display SurveyForm", () => {
     const titleInput = screen.getByLabelText(/title/i);
     const questionInput = screen.getByLabelText("question");
     const typeInput = screen.getByLabelText("type");
-    await userEvent.type(titleInput, "First Survey");
+    await userEvent.type(titleInput, "    First   Survey");
     await userEvent.type(questionInput, "First Question");
     await userEvent.selectOptions(typeInput, "yes/no");
     expect(titleInput).toHaveValue("First Survey");

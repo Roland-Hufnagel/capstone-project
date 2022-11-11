@@ -6,6 +6,7 @@ import Preview from "./Preview";
 import { FiSave, FiPlusCircle } from "react-icons/fi";
 import { ImCancelCircle } from "react-icons/im";
 import { PrimaryButton } from "./Buttons/PrimaryButton";
+import { nanoid } from "nanoid";
 
 export default function CreateSurveyForm({
   title,
@@ -57,7 +58,7 @@ export default function CreateSurveyForm({
     newQuestions.push({
       title: "",
       type: "",
-      id: Math.random().toString(),
+      id: nanoid(),
       answers: [],
     });
     const newSurvey = { ...survey, questions: newQuestions };
@@ -134,8 +135,12 @@ export default function CreateSurveyForm({
           </QuestionWrapper>
         ))}
 
-        <PrimaryButton type="button" bg="#9BD77C" onClick={handleAdd} aria-label="add Question">
-          
+        <PrimaryButton
+          type="button"
+          bg="#9BD77C"
+          onClick={handleAdd}
+          aria-label="add Question"
+        >
           <FiPlusCircle />
           New Question
         </PrimaryButton>

@@ -2,6 +2,7 @@ import { useRouter } from "next/router";
 import CreateSurveyForm from "../../components/CreateSurveyForm";
 import { authOptions } from "../api/auth/[...nextauth]";
 import { unstable_getServerSession } from "next-auth";
+import { nanoid } from "nanoid";
 
 export async function getServerSideProps(context) {
   const session = await unstable_getServerSession(
@@ -46,7 +47,7 @@ export default function Create({ host }) {
       url={`${host}/survey/`}
       questions={[
         {
-          id: Math.random().toString(),
+          id: nanoid(),
           title: "",
           type: "",
           answers: [],
