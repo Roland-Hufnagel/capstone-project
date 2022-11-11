@@ -5,7 +5,7 @@ const PrimaryButton = styled.button`
   background-color: ${({ bg }) => (bg ? bg : "#44803f")};
   border: 3px solid ${({ bg }) => (bg ? bg : "#44803f")};
   color: ${({ color }) => (color ? color : "#101828")};
-  
+
   padding: 0.3em;
   border-radius: 0.3em;
   display: inline-flex;
@@ -14,7 +14,8 @@ const PrimaryButton = styled.button`
   align-items: center;
   &:hover {
     cursor: pointer;
-    transform: scale(0.95);
+    
+    transform: scaleY(1.1);
   }
 `;
 export { PrimaryButton };

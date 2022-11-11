@@ -46,7 +46,9 @@ const NoVotes = styled.section`
 `;
 const StyledEvaluationCard = styled.li`
   all: unset;
-  border: 1px solid black;
+  //border: 1px solid black;
+  background-color: #fff;
+  box-shadow: 0px 12px 16px -4px rgba(16, 24, 40, 0.2), 0px 4px 6px -2px rgba(16, 24, 40, 0.03);
   border-radius: 0.4em;
   padding: 0.5em;
   & h2 {

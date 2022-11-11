@@ -6,6 +6,7 @@ import { authOptions } from "../api/auth/[...nextauth]";
 import { unstable_getServerSession } from "next-auth";
 import { PrimaryButton } from "../../components/Buttons/PrimaryButton";
 import { TbPlus } from "react-icons/tb";
+import { render } from "@testing-library/react";
 export async function getServerSideProps(context) {
   const session = await unstable_getServerSession(
     context.req,
@@ -49,10 +50,14 @@ export default function Surveys({ surveys }) {
       <StyledSurveyList>
         <StyledContainer>
           <h2>My Surveys:</h2>
-          
-          <PrimaryButton bg="#9BD77C" color="101828" onClick={() => {
+
+          <PrimaryButton
+            bg="#9BD77C"
+            color="101828"
+            onClick={() => {
               router.push("/create");
-            }}>
+            }}
+          >
             <TbPlus />
             New
           </PrimaryButton>
@@ -83,5 +88,5 @@ const StyledSurveyList = styled.ul`
   margin: 0 auto;
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 15px;
 `;

@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useRouter } from "next/router";
 import styled from "styled-components";
+import { RiDeleteBin6Line } from "react-icons/ri";
 import DeleteButton from "./Buttons/DeleteButton";
 import Preview from "./Preview";
 import { FiSave, FiPlusCircle } from "react-icons/fi";
@@ -126,6 +127,7 @@ export default function CreateSurveyForm({
               <option value="text">Text</option>
               <option value="choice">Choice</option>
             </select>
+
             <DeleteButton
               onClick={() => {
                 handleDelete(index);
@@ -151,8 +153,8 @@ export default function CreateSurveyForm({
         </PrimaryButton>
         <PrimaryButton
           bg="#E5586A"
-          type="button"
           color="#eee"
+          type="button"
           aria-label="cancel"
           onClick={() => {
             router.push("/surveys");

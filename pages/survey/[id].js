@@ -2,6 +2,7 @@ import QuestionCard from "../../components/QuestionCard";
 import styled from "styled-components";
 import { useRouter } from "next/router";
 import { getSurveyById } from "../../services/surveyService";
+import { PrimaryButton } from "../../components/Buttons/PrimaryButton";
 
 export async function getServerSideProps(context) {
   const { id } = context.params;
@@ -39,7 +40,7 @@ export default function Survey({ id, title, date, questions }) {
   return (
     <StyledForm onSubmit={handleSubmit}>
       <h2>{title}</h2>
-      <p>{date}</p>
+
       <ul>
         {questions.map((question) => (
           <QuestionCard
@@ -50,7 +51,7 @@ export default function Survey({ id, title, date, questions }) {
           />
         ))}
       </ul>
-      <button type="submit">Submit</button>
+      <PrimaryButton bg="#9bd77c" type="submit">Submit</PrimaryButton>
     </StyledForm>
   );
 }
@@ -59,12 +60,22 @@ const StyledForm = styled.form`
   max-width: 600px;
   margin: 0 auto;
 
-  & button {
+  /* & button {
+    background-color: #9bd77c;
+    border: none;
+    text-align: center;
     width: 100%;
     font-size: 1em;
     border-radius: 0.3em;
-    padding: 0.3em;
-  }
+    padding: 0.5em;
+    border: 1px solid #aaa;
+
+    box-shadow: 0px 12px 16px -4px rgba(16, 24, 40, 0.5),
+      0px 4px 6px -2px rgba(16, 24, 40, 0.03);
+      &:hover{
+        cursor: pointer;
+      }
+  } */
   & ul {
     all: unset;
   }

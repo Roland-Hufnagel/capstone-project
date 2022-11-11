@@ -51,6 +51,7 @@ h2 {
           color: var(--text-primary);
           margin: 0;
           padding: 15px;
+          padding-bottom: 50px;
       }
       
   `;
