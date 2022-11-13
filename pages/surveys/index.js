@@ -6,7 +6,6 @@ import { authOptions } from "../api/auth/[...nextauth]";
 import { unstable_getServerSession } from "next-auth";
 import { PrimaryButton } from "../../components/Buttons/PrimaryButton";
 import { TbPlus } from "react-icons/tb";
-import { render } from "@testing-library/react";
 export async function getServerSideProps(context) {
   const session = await unstable_getServerSession(
     context.req,

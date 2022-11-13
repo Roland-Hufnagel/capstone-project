@@ -94,8 +94,6 @@ const DisplayLink = styled.section`
 
 const StyledSurveyCard = styled.li`
   all: unset;
-  //border: 1px solid black;
-  //background-color: #fff;
   border-radius: 0.4em;
   padding: 0.8em;
   display: flex;

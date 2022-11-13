@@ -27,7 +27,6 @@ export default function Home() {
         /></ImageContainer>
         <Image
           src="/img/roland_capstone_home_illustration.svg"
-          //src="/img/FREE FEEDBACK FORM.png"
           alt="home illustration"
           layout="responsive"
           width={100}

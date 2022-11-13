@@ -59,7 +59,6 @@ const StyledQuestionCard = styled.li`
   padding: 5px;
   border-top: 15px solid #9bd77c;
   margin: 1rem 0;
-  //font-weight: bold;
   & input {
     margin: 1.2em;
   }
