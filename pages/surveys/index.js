@@ -49,10 +49,14 @@ export default function Surveys({ surveys }) {
       <StyledSurveyList>
         <StyledContainer>
           <h2>My Surveys:</h2>
-          
-          <PrimaryButton bg="#9BD77C" color="101828" onClick={() => {
+
+          <PrimaryButton
+            bg="#9BD77C"
+            color="101828"
+            onClick={() => {
               router.push("/create");
-            }}>
+            }}
+          >
             <TbPlus />
             New
           </PrimaryButton>
@@ -83,5 +87,5 @@ const StyledSurveyList = styled.ul`
   margin: 0 auto;
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 15px;
 `;

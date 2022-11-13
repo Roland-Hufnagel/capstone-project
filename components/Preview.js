@@ -50,7 +50,7 @@ const StyledPreview = styled.fieldset`
   grid-column-start: 1;
   grid-column-end: 4;
   background-color: #ddd;
-  color: #666;
+  color: black;
   border-radius: 5px;
   border: 1px solid #aaa;
   margin-bottom: 30px;

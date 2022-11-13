@@ -86,6 +86,7 @@ export default function CreateSurveyForm({
           required
           aria-label="title"
           placeholder="your title"
+          autoComplete="off"
           style={{ width: "100%" }}
           value={survey.title}
           onChange={handleChangeTitle}
@@ -108,6 +109,7 @@ export default function CreateSurveyForm({
               aria-label="question"
               name={`question-${index}`}
               placeholder="your question"
+              autoComplete="off"
               required
               value={question.title}
               onChange={(event) => handleChangeQuestion(index, event)}
@@ -120,12 +122,13 @@ export default function CreateSurveyForm({
               onChange={(event) => handleChangeType(index, event)}
             >
               <option value="" disabled>
-                choose type
+                select
               </option>
               <option value="yes/no">Yes/No</option>
               <option value="text">Text</option>
               <option value="choice">Choice</option>
             </select>
+
             <DeleteButton
               onClick={() => {
                 handleDelete(index);
@@ -151,8 +154,8 @@ export default function CreateSurveyForm({
         </PrimaryButton>
         <PrimaryButton
           bg="#E5586A"
-          type="button"
           color="#eee"
+          type="button"
           aria-label="cancel"
           onClick={() => {
             router.push("/surveys");
@@ -189,6 +192,7 @@ const Container = styled.section`
     padding: 0.7em;
     font-size: 1rem;
     border-radius: 0.5em;
+    background-color: #fff;
   }
 `;
 

@@ -69,7 +69,7 @@ const StyledEvaluationList = styled.ul`
   all: unset;
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 15px;
   margin-bottom: 40px;
 `;
 
