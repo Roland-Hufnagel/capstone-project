@@ -30,7 +30,7 @@ export default function SurveyCard({ title, url, date, id, onDelete }) {
         <time>{date}</time>
         <DisplayLink>
           <Link href={url} passHref>
-            <a target="_blank">{url}</a>
+            <a >{url}</a>
           </Link>
           <button
             onClick={() => {

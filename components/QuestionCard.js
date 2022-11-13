@@ -57,8 +57,9 @@ const StyledQuestionCard = styled.li`
   list-style: none;
   border-radius: 0.4em;
   padding: 5px;
-  border-top: 15px solid #ccc;
+  border-top: 15px solid #9bd77c;
   margin: 1rem 0;
+  //font-weight: bold;
   & input {
     margin: 1.2em;
   }
@@ -68,5 +69,6 @@ const StyledQuestionCard = styled.li`
   & textarea {
     width: 100%;
     font-family: "Noto Sans";
+    padding: 0.5em;
   }
 `;

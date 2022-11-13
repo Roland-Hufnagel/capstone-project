@@ -36,10 +36,13 @@ const ModalContainer = styled.div`
   top: 0;
   left: 0;
   backdrop-filter: blur(12px);
-  font-size: 1.4em;
+  font-size: 1.2em;
   & div{
     max-width: 600px;
-    background-color: hsla(0, 100%, 100%,0.7);
-    border-radius: 1.0em;
+    background-color: hsla(0, 100%, 100%,0.9);
+    border-radius: 1.0em;padding: 0.5em;
+  }
+  & p{
+    font-weight: 400;
   }
 `;

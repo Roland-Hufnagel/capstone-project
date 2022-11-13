@@ -2,8 +2,11 @@ import styled from "styled-components";
 import Image from "next/image";
 import LoginArea from "./LoginArea";
 import Link from "next/link";
+import { useRouter } from "next/router";
 
 export default function Header() {
+  const router = useRouter();
+
   return (
     <StyledHeader>
       <Link href="/" passHref>
@@ -17,12 +20,14 @@ export default function Header() {
           />
         </a>
       </Link>
-
-      <LoginArea />
+    {!router.pathname.includes("subscribe")&&<LoginArea />}
+    {router.pathname.includes("subscribe")&&<TextLogo>FREE FEEDBACK FORM</TextLogo>}
     </StyledHeader>
   );
 }
+const TextLogo=styled.p`
 
+`;
 const StyledHeader = styled.header`
   max-width: 600px;
   font-size: 1.5rem;

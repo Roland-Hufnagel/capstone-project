@@ -1,6 +1,7 @@
 import { useSession, signIn, signOut } from "next-auth/react";
 import styled from "styled-components";
 import Image from "next/image";
+import { Router, useRouter } from "next/router";
 
 export default function LoginArea() {
   const { data: session } = useSession();
@@ -29,6 +30,7 @@ export default function LoginArea() {
     </>
   );
 }
+
 const ProfileImage = styled.div`
   grid-column-start: 2;
   grid-row-start: 1;

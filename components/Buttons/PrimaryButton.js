@@ -5,7 +5,7 @@ const PrimaryButton = styled.button`
   background-color: ${({ bg }) => (bg ? bg : "#44803f")};
   border: 3px solid ${({ bg }) => (bg ? bg : "#44803f")};
   color: ${({ color }) => (color ? color : "#101828")};
-
+font-weight: 400;
   padding: 0.3em;
   border-radius: 0.3em;
   display: inline-flex;

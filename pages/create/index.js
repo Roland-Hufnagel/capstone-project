@@ -44,7 +44,7 @@ export default function Create({ host }) {
       title=""
       description=""
       date={new Date()}
-      url={`${host}/survey/`}
+      url={`${host}/subscribe/`}
       questions={[
         {
           id: nanoid(),
