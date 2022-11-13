@@ -15,7 +15,7 @@ export default function Thankyou() {
       />
       <Teaser>
         You like what you see? Try out making your own surveys and get precious
-        feedback. It's free.
+        feedback. It is free.
         <hr />
         <PrimaryButton bg="#9BD77C">
           <AiOutlineArrowRight />
