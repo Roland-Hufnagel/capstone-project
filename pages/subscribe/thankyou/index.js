@@ -2,7 +2,11 @@ import styled from "styled-components";
 import { AiOutlineArrowRight } from "react-icons/ai";
 import Image from "next/image";
 import { PrimaryButton } from "../../../components/Buttons/PrimaryButton";
+import { useRouter } from "next/router";
+
 export default function Thankyou() {
+  const router = useRouter();
+
   return (
     <StyledSection>
       <p>THANK YOU FOR YOUR FEEDBACK</p>
@@ -17,7 +21,12 @@ export default function Thankyou() {
         You like what you see? Try out making your own surveys and get precious
         feedback. It is free.
         <hr />
-        <PrimaryButton bg="#9BD77C">
+        <PrimaryButton
+          bg="#9BD77C"
+          onClick={() => {
+            router.push("/");
+          }}
+        >
           <AiOutlineArrowRight />
           Try out
         </PrimaryButton>

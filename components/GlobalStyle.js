@@ -47,15 +47,6 @@ const GlobalStyle = createGlobalStyle`
        url('../fonts/source-sans-pro-v21-latin-600.woff2') format('woff2'), /* Chrome 26+, Opera 23+, Firefox 39+ */
        url('../fonts/source-sans-pro-v21-latin-600.woff') format('woff'); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
 }
-/* bungee-outline-regular - latin */
-@font-face {
-  font-family: 'Bungee Outline';
-  font-style: normal;
-  font-weight: 400;
-  src: local(''),
-       url('../fonts/bungee-outline-v18-latin-regular.woff2') format('woff2'), /* Chrome 26+, Opera 23+, Firefox 39+ */
-       url('../fonts/bungee-outline-v18-latin-regular.woff') format('woff'); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
-}
         /* noto-sans-regular - latin */
 @font-face {
   font-family: 'Noto Sans';
