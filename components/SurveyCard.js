@@ -19,7 +19,7 @@ export default function SurveyCard({ title, url, date, id, onDelete }) {
     <>
       {deleteModal && (
         <Modal
-        text1={`${title}`}
+          text1={`${title}`}
           text2="Do you really want to delete this survey?"
           onYes={onDelete}
           onNo={onDeleteNot}
@@ -30,7 +30,7 @@ export default function SurveyCard({ title, url, date, id, onDelete }) {
         <time>{date}</time>
         <DisplayLink>
           <Link href={url} passHref>
-            <a >{url}</a>
+            <a>{url}</a>
           </Link>
           <button
             onClick={() => {
@@ -41,25 +41,17 @@ export default function SurveyCard({ title, url, date, id, onDelete }) {
           </button>
         </DisplayLink>
         <ButtonContainer>
-          <PrimaryButton
-            bg="#9BD77C"
-            color="#101828"
-            onClick={() => router.push(`/evaluation/${id}`)}
-          >
+          <PrimaryButton onClick={() => router.push(`/evaluation/${id}`)}>
             <AiOutlinePieChart />
             Evaluation
           </PrimaryButton>
-          <PrimaryButton
-            bg="#5EB6FF"
-            color="#101828"
-            onClick={() => router.push(`/edit/${id}`)}
-          >
+          <PrimaryButton bg="myBlue" onClick={() => router.push(`/edit/${id}`)}>
             <FiEdit />
             Edit
           </PrimaryButton>
           <PrimaryButton
-            bg="#E5586A"
-            color="#eee"
+            bg="myRed"
+            color="white"
             onClick={() => {
               setDeleteModal(true);
             }}

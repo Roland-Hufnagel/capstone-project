@@ -7,9 +7,13 @@ const GlobalStyle = createGlobalStyle`
         --buttonRed: #44803f;
         --lighttext: #CDCDCD;
         --darktext: #101828;
-            --myblue: #00f;
-            --text-primary: #0c2c4d;
-            --background-primary: #edf0f5;
+        --whitetext: #fff;
+        --myblue: #00f;
+        --text-primary: #0c2c4d;
+        --background-primary: #edf0f5;
+        --myGreen: #9BD77C;
+        --myBlue: #5EB6FF;
+        --myRed: #E5586A;
       }
 /* source-sans-pro-200 - latin */
 @font-face {

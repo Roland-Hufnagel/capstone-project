@@ -41,7 +41,7 @@ export default function Home() {
             Create surveys in a minute and invite your students, customers,
             employeers to get precious feedback. Start now and sign in.
           </p>
-          <PrimaryButton bg="#9BD77C" onClick={() => signIn()}>
+          <PrimaryButton  onClick={() => signIn()}>
             <AiOutlineArrowRight />
             Sign in
           </PrimaryButton>
@@ -51,7 +51,6 @@ export default function Home() {
       {session && (
         <>
           <PrimaryButton
-            bg="#9BD77C"
             onClick={() => {
               router.push("/create");
             }}
@@ -60,7 +59,6 @@ export default function Home() {
             Create a new Survey
           </PrimaryButton>
           <PrimaryButton
-            bg="#9BD77C"
             onClick={() => {
               router.push("/surveys");
             }}

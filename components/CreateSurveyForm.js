@@ -140,7 +140,6 @@ export default function CreateSurveyForm({
 
         <PrimaryButton
           type="button"
-          bg="#9BD77C"
           onClick={handleAdd}
           aria-label="add Question"
         >
@@ -148,13 +147,13 @@ export default function CreateSurveyForm({
           New Question
         </PrimaryButton>
         <hr />
-        <PrimaryButton bg="#9BD77C" type="submit">
+        <PrimaryButton type="submit">
           <FiSave />
           Save
         </PrimaryButton>
         <PrimaryButton
-          bg="#E5586A"
-          color="#eee"
+          bg="myRed"
+          color="white"
           type="button"
           aria-label="cancel"
           onClick={() => {

@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { useRouter } from "next/router";
 import { getSurveyById } from "../../services/surveyService";
 import { PrimaryButton } from "../../components/Buttons/PrimaryButton";
-
+import { AiOutlineArrowRight } from "react-icons/ai";
 export async function getServerSideProps(context) {
   const { id } = context.params;
   const survey = await getSurveyById(id);
@@ -51,7 +51,10 @@ export default function Survey({ id, title, date, questions }) {
           />
         ))}
       </ul>
-      <PrimaryButton bg="#9bd77c" type="submit">Submit</PrimaryButton>
+      <PrimaryButton type="submit">
+        <AiOutlineArrowRight />
+        Submit
+      </PrimaryButton>
     </StyledForm>
   );
 }
