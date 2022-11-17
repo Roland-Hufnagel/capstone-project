@@ -47,8 +47,8 @@ export default function Evaluation({ title, date, questions }) {
         ))}
       </StyledEvaluationList>
       <PrimaryButton
-        bg="#9BD77C"
-        color="101828"
+        bg="myGreen"
+        color="dark"
         onClick={() => router.push(`/surveys`)}
       ><IoMdArrowRoundBack/>
         My Surveys

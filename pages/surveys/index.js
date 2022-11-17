@@ -51,8 +51,6 @@ export default function Surveys({ surveys }) {
           <h2>My Surveys:</h2>
 
           <PrimaryButton
-            bg="#9BD77C"
-            color="101828"
             onClick={() => {
               router.push("/create");
             }}

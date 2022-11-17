@@ -9,11 +9,11 @@ export default function Modal({ text1, text2, onYes, onNo }) {
       <div>
         <h2>{text1}</h2>
         <p>{text2}</p>
-        <PrimaryButton bg="#9BD77C" onClick={onYes}>
+        <PrimaryButton  onClick={onYes}>
           <MdOutlineDone />
           Yes
         </PrimaryButton>
-        <PrimaryButton bg="#E5586A" color="#eee" onClick={onNo}>
+        <PrimaryButton bg="myRed" color="white" onClick={onNo}>
           <ImCancelCircle />
           No
         </PrimaryButton>
