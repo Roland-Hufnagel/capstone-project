@@ -25,6 +25,7 @@ Click 'Delete' to remove surveys, you don't need anymore.
 - Add a description to the survey
 - Searchbar to find explicit surveys faster
 - Save an existing survey as a new one
+- Give the survey your look and feel by adding an image and color
 
 
 ![mogen](https://user-images.githubusercontent.com/111574974/202681976-752c3cfc-b2a8-44a5-92ce-e70892fefe38.png)
