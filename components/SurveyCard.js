@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import Link from "next/link";
-import { MdOutlineContentCopy } from "react-icons/md";
+import { MdOutlineContentCopy, MdCloudDone } from "react-icons/md";
+import { FaCheckCircle } from "react-icons/fa";
 import { AiOutlinePieChart } from "react-icons/ai";
 import { PrimaryButton } from "./Buttons/PrimaryButton";
 import { RiDeleteBin6Line } from "react-icons/ri";
@@ -11,9 +12,19 @@ import Modal from "./Modal";
 
 export default function SurveyCard({ title, url, date, id, onDelete }) {
   const router = useRouter();
+  const [copied, setCopied] = useState(false);
+
   const [deleteModal, setDeleteModal] = useState(false);
   function onDeleteNot() {
     setDeleteModal(false);
+  }
+  function handleCopyClick() {
+    navigator.clipboard.writeText(url);
+    setCopied(true);
+    const timeId = setTimeout(reset, 2000);
+  }
+  function reset() {
+    setCopied(false);
   }
   return (
     <>
@@ -32,12 +43,9 @@ export default function SurveyCard({ title, url, date, id, onDelete }) {
           <Link href={url} passHref>
             <a>{url}</a>
           </Link>
-          <button
-            onClick={() => {
-              navigator.clipboard.writeText(url);
-            }}
-          >
-            <MdOutlineContentCopy />
+          <button onClick={handleCopyClick}>
+            {!copied && <MdOutlineContentCopy />}
+            {copied && <FaCheckCircle style={{ color: "green" }} />}
           </button>
         </DisplayLink>
         <ButtonContainer>
