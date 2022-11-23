@@ -18,12 +18,11 @@ export async function getServerSideProps(context) {
       },
     };
   }
-  const { req } = context;
-  const host = req.headers.host;
-  return { props: { host: host } };
+
+  return { props: {} };
 }
 
-export default function Create({ host }) {
+export default function Create() {
   const router = useRouter();
 
   async function handleSubmit(data) {
@@ -44,7 +43,7 @@ export default function Create({ host }) {
       title=""
       description=""
       date={new Date()}
-      url={`${host}/subscribe/`}
+      url=""
       questions={[
         {
           id: nanoid(),

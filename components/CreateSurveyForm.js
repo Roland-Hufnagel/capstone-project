@@ -15,6 +15,7 @@ export default function CreateSurveyForm({
   description,
   url,
   onSubmit,
+  editMode,
 }) {
   const router = useRouter();
   const [survey, setSurvey] = useState({
@@ -35,8 +36,8 @@ export default function CreateSurveyForm({
     }
     setSurvey({ ...survey, title: newTitle });
   }
-  function handleChangeDescription(event){
-    setSurvey({...survey, description: event.target.value})
+  function handleChangeDescription(event) {
+    setSurvey({ ...survey, description: event.target.value });
   }
 
   function handleChangeQuestion(index, event) {
@@ -75,8 +76,23 @@ export default function CreateSurveyForm({
   }
   function handleSubmit(event) {
     event.preventDefault();
-
     onSubmit(survey);
+  }
+  async function saveAsNew() {
+    const data = { ...survey };
+    data.date = new Date();
+    data.questions.map((question) => (question.answers = []));
+
+    try {
+      const response = await fetch("/api/create", {
+        method: "POST",
+        body: JSON.stringify(data),
+      });
+      await response.json();
+      router.push("../surveys");
+    } catch (error) {
+      console.error(error);
+    }
   }
 
   return (
@@ -99,19 +115,19 @@ export default function CreateSurveyForm({
           }}
         />
         <DescriptionInput
-        type="text"
-        rows="3"
-        name="description"
-        aria-label="description"
-        placeholder="your description"
-        autoComplete="off"
-        style={{ width: "100%" }}
-        value={survey.description}
-        onChange={handleChangeDescription}
-        onKeyPress={(e) => {
-          // this prevents a submit when hitting Enter!
-          e.key === "Enter" && e.preventDefault();
-        }}
+          type="text"
+          rows="3"
+          name="description"
+          aria-label="description"
+          placeholder="your description"
+          autoComplete="off"
+          style={{ width: "100%" }}
+          value={survey.description}
+          onChange={handleChangeDescription}
+          onKeyPress={(e) => {
+            // this prevents a submit when hitting Enter!
+            e.key === "Enter" && e.preventDefault();
+          }}
         />
         <hr />
 
@@ -181,12 +197,22 @@ export default function CreateSurveyForm({
           <ImCancelCircle />
           Cancel
         </PrimaryButton>
+        {editMode && (
+          <PrimaryButton
+            type="button"
+            aria-label="save as new survey"
+            onClick={saveAsNew}
+          >
+            <FiSave />
+            Save as new survey
+          </PrimaryButton>
+        )}
       </form>
     </Container>
   );
 }
-const DescriptionInput=styled.textarea`
-margin-top: 0.3em;
+const DescriptionInput = styled.textarea`
+  margin-top: 0.3em;
 `;
 const QuestionInput = styled.input`
   width: 100%;
@@ -208,7 +234,7 @@ const Container = styled.section`
   & input,
   & textarea,
   & select {
-    font-family: 'Source Sans Pro';
+    font-family: "Source Sans Pro";
     border: 1px solid #ccc;
     padding: 0.7em;
     font-size: 1rem;
@@ -217,4 +243,3 @@ const Container = styled.section`
     resize: none;
   }
 `;
-

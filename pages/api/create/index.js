@@ -9,15 +9,17 @@ export default async function handler(req, res) {
     res.send({ errror: "You must be signed in!" });
     return;
   }
-
+  const host = req.headers.host;
+  console.log(host);
   if (req.method === "POST") {
     await dbConnect();
     const postData = JSON.parse(req.body);
     postData.owner = session.user.email;
+    postData.url = "http://" + host + "/subscribe/";
     const newSurvey = await SurveyModel.create(postData);
 
     await SurveyModel.findByIdAndUpdate(newSurvey.id, {
-      url: "http://" + newSurvey.url + newSurvey.id,
+      url: newSurvey.url + newSurvey.id,
     });
     res
       .status(201)
