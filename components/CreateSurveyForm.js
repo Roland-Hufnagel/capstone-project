@@ -35,6 +35,9 @@ export default function CreateSurveyForm({
     }
     setSurvey({ ...survey, title: newTitle });
   }
+  function handleChangeDescription(event){
+    setSurvey({...survey, description: event.target.value})
+  }
 
   function handleChangeQuestion(index, event) {
     let newQuestion = event.target.value;
@@ -94,6 +97,21 @@ export default function CreateSurveyForm({
             // this prevents a submit when hitting Enter!
             e.key === "Enter" && e.preventDefault();
           }}
+        />
+        <DescriptionInput
+        type="text"
+        rows="3"
+        name="description"
+        aria-label="description"
+        placeholder="your description"
+        autoComplete="off"
+        style={{ width: "100%" }}
+        value={survey.description}
+        onChange={handleChangeDescription}
+        onKeyPress={(e) => {
+          // this prevents a submit when hitting Enter!
+          e.key === "Enter" && e.preventDefault();
+        }}
         />
         <hr />
 
@@ -167,6 +185,9 @@ export default function CreateSurveyForm({
     </Container>
   );
 }
+const DescriptionInput=styled.textarea`
+margin-top: 0.3em;
+`;
 const QuestionInput = styled.input`
   width: 100%;
 `;
@@ -175,7 +196,6 @@ const QuestionWrapper = styled.section`
   display: grid;
   gap: 5px;
   grid-template-columns: auto 100px 40px;
-
   word-break: break-word;
 `;
 const Container = styled.section`
@@ -186,25 +206,15 @@ const Container = styled.section`
   flex-direction: column;
   align-items: stretch;
   & input,
+  & textarea,
   & select {
+    font-family: 'Source Sans Pro';
     border: 1px solid #ccc;
     padding: 0.7em;
     font-size: 1rem;
     border-radius: 0.5em;
     background-color: #fff;
+    resize: none;
   }
 `;
 
-const SubmitButton = styled.button`
-  padding: 0.5em;
-  border: 4px solid #44803f;
-  border-radius: 0.4em;
-  font-size: 1.1em;
-  color: #44803f;
-  font-weight: bold;
-  &:hover {
-    cursor: pointer;
-    color: #146152;
-    border: 4px solid #146152;
-  }
-`;
