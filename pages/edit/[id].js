@@ -3,6 +3,8 @@ import CreateSurveyForm from "../../components/CreateSurveyForm";
 import { getSurveyById } from "../../services/surveyService";
 import { authOptions } from "../api/auth/[...nextauth]";
 import { unstable_getServerSession } from "next-auth";
+import { PrimaryButton } from "../../components/Buttons/PrimaryButton";
+import { FiSave } from "react-icons/fi";
 
 export async function getServerSideProps(context) {
   const session = await unstable_getServerSession(
@@ -43,13 +45,17 @@ export default function Edit({ id, title, description, date, url, questions }) {
   }
 
   return (
-    <CreateSurveyForm
-      title={title}
-      description={description}
-      date={date}
-      url={url}
-      questions={questions}
-      onSubmit={handleSubmit}
-    />
+    <>
+      <CreateSurveyForm
+        title={title}
+        description={description}
+        date={date}
+        url={url}
+        questions={questions}
+        onSubmit={handleSubmit}
+        editMode={true}
+      />
+      
+    </>
   );
 }
