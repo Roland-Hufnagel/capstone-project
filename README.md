@@ -22,7 +22,7 @@ Click 'Delete' to remove surveys, you don't need anymore.
 ## Features coming in the future
 
 - Facebook Login
-- Add a description to the survey
+- Add a description to the survey (done)
 - Searchbar to find explicit surveys faster
 - Save an existing survey as a new one
 - Give the survey your look and feel by adding an image and color
