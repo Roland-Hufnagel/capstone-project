@@ -63,6 +63,7 @@ export default function Surveys({ surveys }) {
           <SurveyCard
             key={survey.id}
             title={survey.title}
+            description={survey.description}
             url={survey.url}
             date={survey.date}
             id={survey.id}

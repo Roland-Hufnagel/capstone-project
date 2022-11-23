@@ -30,11 +30,12 @@ export async function getServerSideProps(context) {
   };
 }
 
-export default function Evaluation({ title, date, questions }) {
+export default function Evaluation({ title, description, date, questions }) {
   const router = useRouter();
   return (
     <StyledEvaluation>
       <h2>{title}</h2>
+      <p>{description}</p>
       <p>{date}</p>
       <StyledEvaluationList>
         {questions.map((question) => (

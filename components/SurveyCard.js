@@ -10,7 +10,7 @@ import { useRouter } from "next/router";
 import { useState } from "react";
 import Modal from "./Modal";
 
-export default function SurveyCard({ title, url, date, id, onDelete }) {
+export default function SurveyCard({ title, description, url, date, id, onDelete }) {
   const router = useRouter();
   const [copied, setCopied] = useState(false);
 
@@ -38,6 +38,7 @@ export default function SurveyCard({ title, url, date, id, onDelete }) {
       )}
       <StyledSurveyCard>
         <h2>{title}</h2>
+        <Description>{description}</Description>
         <time>{date}</time>
         <DisplayLink>
           <Link href={url} passHref>
@@ -48,7 +49,7 @@ export default function SurveyCard({ title, url, date, id, onDelete }) {
             {copied && <FaCheckCircle style={{ color: "green" }} />}
           </button>
         </DisplayLink>
-        <ButtonContainer>
+        <section>
           <PrimaryButton onClick={() => router.push(`/evaluation/${id}`)}>
             <AiOutlinePieChart />
             Evaluation
@@ -67,12 +68,14 @@ export default function SurveyCard({ title, url, date, id, onDelete }) {
             <RiDeleteBin6Line />
             Delete
           </PrimaryButton>
-        </ButtonContainer>
+        </section>
       </StyledSurveyCard>
     </>
   );
 }
-const ButtonContainer = styled.section``;
+const Description = styled.p`
+margin: 0.3em 0;
+`;
 
 const DisplayLink = styled.section`
   word-break: break-word;
