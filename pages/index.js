@@ -7,10 +7,16 @@ import { FiPlusCircle } from "react-icons/fi";
 import { AiOutlineArrowRight } from "react-icons/ai";
 import { PrimaryButton } from "../components/Buttons/PrimaryButton";
 import Image from "next/image";
+import { useState } from "react";
+import PulseLoader from "react-spinners/PulseLoader";
 
 export default function Home() {
   const { data: session } = useSession();
   const router = useRouter();
+  const [loading, setLoading] = useState(false);
+  function startLoader() {
+    setLoading(!loading);
+  }
   return (
     <div>
       <Head>
@@ -41,7 +47,7 @@ export default function Home() {
             Create surveys in a minute and invite your students, customers,
             employeers to get precious feedback. Start now and sign in.
           </p>
-          <PrimaryButton  onClick={() => signIn()}>
+          <PrimaryButton onClick={() => signIn()}>
             <AiOutlineArrowRight />
             Sign in
           </PrimaryButton>
@@ -52,6 +58,7 @@ export default function Home() {
         <>
           <PrimaryButton
             onClick={() => {
+              setTimeout(startLoader, 500);
               router.push("/create");
             }}
           >
@@ -60,12 +67,14 @@ export default function Home() {
           </PrimaryButton>
           <PrimaryButton
             onClick={() => {
+              setTimeout(startLoader, 500);
               router.push("/surveys");
             }}
           >
             <AiOutlinePieChart />
             Explore your Surveys
-          </PrimaryButton>
+          </PrimaryButton>{" "}
+          <PulseLoader loading={loading} color="#9BD77C" />
         </>
       )}
     </div>

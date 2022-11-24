@@ -7,6 +7,7 @@ import { FiSave, FiPlusCircle } from "react-icons/fi";
 import { ImCancelCircle } from "react-icons/im";
 import { PrimaryButton } from "./Buttons/PrimaryButton";
 import { nanoid } from "nanoid";
+import PulseLoader from "react-spinners/PulseLoader";
 
 export default function CreateSurveyForm({
   title,
@@ -25,6 +26,11 @@ export default function CreateSurveyForm({
     url: url,
     questions: questions,
   });
+  const [loading, setLoading] = useState(false);
+
+  function startLoader() {
+    setLoading(!loading);
+  }
 
   function handleChangeTitle(event) {
     let newTitle = event.target.value;
@@ -181,7 +187,10 @@ export default function CreateSurveyForm({
           New Question
         </PrimaryButton>
         <hr />
-        <PrimaryButton type="submit">
+        <PrimaryButton
+          type="submit"
+          onClick={() => setTimeout(startLoader, 500)}
+        >
           <FiSave />
           Save
         </PrimaryButton>
@@ -201,12 +210,16 @@ export default function CreateSurveyForm({
           <PrimaryButton
             type="button"
             aria-label="save as new survey"
-            onClick={saveAsNew}
+            onClick={() => {
+              setTimeout(startLoader, 500);
+              saveAsNew();
+            }}
           >
             <FiSave />
             Save as new survey
           </PrimaryButton>
         )}
+        <PulseLoader loading={loading} color="#9BD77C" />
       </form>
     </Container>
   );
