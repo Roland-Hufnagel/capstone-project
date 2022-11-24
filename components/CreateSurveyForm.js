@@ -131,8 +131,6 @@ export default function CreateSurveyForm({
           value={survey.description}
           onChange={handleChangeDescription}
           onKeyPress={(e) => {
-            // this prevents a submit when hitting Enter!
-            e.key === "Enter" && e.preventDefault();
           }}
         />
         <hr />
