@@ -55,7 +55,6 @@ export default function Edit({ id, title, description, date, url, questions }) {
         onSubmit={handleSubmit}
         editMode={true}
       />
-      
     </>
   );
 }

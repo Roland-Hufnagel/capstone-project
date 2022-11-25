@@ -10,7 +10,6 @@ export default async function handler(req, res) {
     return;
   }
   const host = req.headers.host;
-  console.log(host);
   if (req.method === "POST") {
     await dbConnect();
     const postData = JSON.parse(req.body);

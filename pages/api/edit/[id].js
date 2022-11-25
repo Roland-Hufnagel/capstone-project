@@ -18,6 +18,7 @@ export default async function handler(req, res) {
     return;
   } else if (req.method === "PATCH") {
     const postData = JSON.parse(req.body);
+    console.log(postData);
     const newSurvey = await SurveyModel.findByIdAndUpdate(id, postData);
     res
       .status(200)
