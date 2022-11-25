@@ -23,6 +23,7 @@ Click 'Delete' to remove surveys, you don't need anymore.
 
 - Facebook Login
 - Add a description to the survey (done)
+- Add react spinners and show animation while saving to DB (done)
 - Searchbar to find explicit surveys faster
 - Save an existing survey as a new one (done)
 - Give the survey your look and feel by adding an image and color
