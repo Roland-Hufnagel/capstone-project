@@ -8,6 +8,7 @@ import { ImCancelCircle } from "react-icons/im";
 import { PrimaryButton } from "./Buttons/PrimaryButton";
 import { nanoid } from "nanoid";
 import PulseLoader from "react-spinners/PulseLoader";
+import Modal from "./Modal";
 
 export default function CreateSurveyForm({
   title,
@@ -18,16 +19,17 @@ export default function CreateSurveyForm({
   onSubmit,
   editMode,
 }) {
+  
   const router = useRouter();
   const [survey, setSurvey] = useState({
     title: title,
     description: description,
-    date: date,
+    date: new Date(),
     url: url,
     questions: questions,
   });
+  const [saveModal, setSaveModal] = useState(false);
   const [loading, setLoading] = useState(false);
-
   function startLoader() {
     setLoading(!loading);
   }
@@ -80,8 +82,7 @@ export default function CreateSurveyForm({
     const newSurvey = { ...survey, questions: newQuestions };
     setSurvey(newSurvey);
   }
-  function handleSubmit(event) {
-    event.preventDefault();
+  function handleSubmit() {
     onSubmit(survey);
   }
   async function saveAsNew() {
@@ -102,124 +103,134 @@ export default function CreateSurveyForm({
   }
 
   return (
-    <Container>
-      <h2>Create your survey here:</h2>
-      <form onSubmit={handleSubmit}>
-        <input
-          type="text"
-          name="title"
-          required
-          aria-label="title"
-          placeholder="your title"
-          autoComplete="off"
-          style={{ width: "100%" }}
-          value={survey.title}
-          onChange={handleChangeTitle}
-          onKeyPress={(e) => {
-            // this prevents a submit when hitting Enter!
-            e.key === "Enter" && e.preventDefault();
-          }}
+    <>
+      {saveModal && (
+        <Modal
+          text1={`${title}`}
+          text2="Are you sure to overwrite this survey?"
+          onYes={() => handleSubmit()}
+          onNo={() => setSaveModal(false)}
         />
-        <DescriptionInput
-          type="text"
-          rows="3"
-          name="description"
-          aria-label="description"
-          placeholder="your description"
-          autoComplete="off"
-          style={{ width: "100%" }}
-          value={survey.description}
-          onChange={handleChangeDescription}
-          onKeyPress={(e) => {
-          }}
-        />
-        <hr />
+      )}
+      <Container>
+        <h2>Create your survey here:</h2>
+        <p>{new Date(date).toLocaleString()}</p>
+        <form onSubmit={handleSubmit}>
+          <input
+            type="text"
+            name="title"
+            required
+            aria-label="title"
+            placeholder="your title"
+            autoComplete="off"
+            style={{ width: "100%" }}
+            value={survey.title}
+            onChange={handleChangeTitle}
+            onKeyPress={(e) => {
+              // this prevents a submit when hitting Enter!
+              e.key === "Enter" && e.preventDefault();
+            }}
+          />
+          <DescriptionInput
+            type="text"
+            rows="3"
+            name="description"
+            aria-label="description"
+            placeholder="your description"
+            autoComplete="off"
+            style={{ width: "100%" }}
+            value={survey.description}
+            onChange={handleChangeDescription}
+            onKeyPress={(e) => {}}
+          />
+          <hr />
 
-        {survey.questions.map((question, index) => (
-          <QuestionWrapper key={question.id}>
-            <QuestionInput
-              onKeyPress={(e) => {
-                // this prevents a submit when hitting Enter!
-                e.key === "Enter" && e.preventDefault();
-              }}
-              maxLength="200"
-              type="text"
-              aria-label="question"
-              name={`question-${index}`}
-              placeholder="your question"
-              autoComplete="off"
-              required
-              value={question.title}
-              onChange={(event) => handleChangeQuestion(index, event)}
-            />
-            <select
-              name={`type-${index}`}
-              required
-              aria-label="type"
-              value={question.type}
-              onChange={(event) => handleChangeType(index, event)}
-            >
-              <option value="" disabled>
-                select
-              </option>
-              <option value="yes/no">Yes/No</option>
-              <option value="text">Text</option>
-              <option value="choice">Choice</option>
-            </select>
+          {survey.questions.map((question, index) => (
+            <QuestionWrapper key={question.id}>
+              <QuestionInput
+                onKeyPress={(e) => {
+                  // this prevents a submit when hitting Enter!
+                  e.key === "Enter" && e.preventDefault();
+                }}
+                maxLength="200"
+                type="text"
+                aria-label="question"
+                name={`question-${index}`}
+                placeholder="your question"
+                autoComplete="off"
+                required
+                value={question.title}
+                onChange={(event) => handleChangeQuestion(index, event)}
+              />
+              <select
+                name={`type-${index}`}
+                required
+                aria-label="type"
+                value={question.type}
+                onChange={(event) => handleChangeType(index, event)}
+              >
+                <option value="" disabled>
+                  select
+                </option>
+                <option value="yes/no">Yes/No</option>
+                <option value="text">Text</option>
+                <option value="choice">Choice</option>
+              </select>
 
-            <DeleteButton
-              onClick={() => {
-                handleDelete(index);
-              }}
-            />
-            <Preview title={question.title} type={question.type} />
-          </QuestionWrapper>
-        ))}
+              <DeleteButton
+                onClick={() => {
+                  handleDelete(index);
+                }}
+              />
+              <Preview title={question.title} type={question.type} />
+            </QuestionWrapper>
+          ))}
 
-        <PrimaryButton
-          type="button"
-          onClick={handleAdd}
-          aria-label="add Question"
-        >
-          <FiPlusCircle />
-          New Question
-        </PrimaryButton>
-        <hr />
-        <PrimaryButton
-          type="submit"
-          onClick={() => setTimeout(startLoader, 500)}
-        >
-          <FiSave />
-          Save
-        </PrimaryButton>
-        <PrimaryButton
-          bg="myRed"
-          color="white"
-          type="button"
-          aria-label="cancel"
-          onClick={() => {
-            router.push("/surveys");
-          }}
-        >
-          <ImCancelCircle />
-          Cancel
-        </PrimaryButton>
-        {editMode && (
           <PrimaryButton
             type="button"
-            aria-label="save as new survey"
-            onClick={() => {
-              setTimeout(startLoader, 500);
-              saveAsNew();
-            }}
+            onClick={handleAdd}
+            aria-label="add Question"
+          >
+            <FiPlusCircle />
+            New Question
+          </PrimaryButton>
+          <hr />
+          <PrimaryButton
+            type="button"
+            onClick={editMode ? () => setSaveModal(true) : () => handleSubmit()}
           >
             <FiSave />
-            Save as new survey
+            Save
           </PrimaryButton>
-        )}
-        <PulseLoader loading={loading} color="#9BD77C" />
-      </form>
-    </Container>
+          <PrimaryButton
+            bg="myRed"
+            color="white"
+            type="button"
+            aria-label="cancel"
+            onClick={() => {
+              router.push("/surveys");
+            }}
+          >
+            <ImCancelCircle />
+            Cancel
+          </PrimaryButton>
+          {editMode && (
+            <PrimaryButton
+              type="button"
+              aria-label="save as new survey"
+              onClick={() => {
+                setTimeout(startLoader, 500);
+                saveAsNew();
+              }}
+            >
+              <FiSave />
+              Save as new survey
+            </PrimaryButton>
+          )}
+          <PulseLoader loading={loading} color="#9BD77C" />
+        </form>
+      </Container>
+    </>
   );
 }
 const DescriptionInput = styled.textarea`

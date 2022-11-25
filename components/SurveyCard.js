@@ -10,7 +10,14 @@ import { useRouter } from "next/router";
 import { useState } from "react";
 import Modal from "./Modal";
 
-export default function SurveyCard({ title, description, url, date, id, onDelete }) {
+export default function SurveyCard({
+  title,
+  description,
+  url,
+  date,
+  id,
+  onDelete,
+}) {
   const router = useRouter();
   const [copied, setCopied] = useState(false);
 
@@ -39,7 +46,7 @@ export default function SurveyCard({ title, description, url, date, id, onDelete
       <StyledSurveyCard>
         <h2>{title}</h2>
         <Description>{description}</Description>
-        <time>{date}</time>
+        <time>{new Date(date).toLocaleString()}</time>
         <DisplayLink>
           <Link href={url} passHref>
             <a>{url}</a>
@@ -74,7 +81,8 @@ export default function SurveyCard({ title, description, url, date, id, onDelete
   );
 }
 const Description = styled.p`
-margin: 0.3em 0;
+  margin: 0.3em 0;
+  white-space: pre-wrap;
 `;
 
 const DisplayLink = styled.section`

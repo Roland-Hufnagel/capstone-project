@@ -5,6 +5,7 @@ import { getAllSurveysByOwner } from "../../services/surveyService";
 import { authOptions } from "../api/auth/[...nextauth]";
 import { unstable_getServerSession } from "next-auth";
 import { PrimaryButton } from "../../components/Buttons/PrimaryButton";
+
 import { TbPlus } from "react-icons/tb";
 export async function getServerSideProps(context) {
   const session = await unstable_getServerSession(
@@ -22,7 +23,6 @@ export async function getServerSideProps(context) {
   }
 
   const surveys = await getAllSurveysByOwner(session.user.email);
-
   return {
     props: {
       surveys: surveys,
@@ -31,7 +31,6 @@ export async function getServerSideProps(context) {
 }
 export default function Surveys({ surveys }) {
   const router = useRouter();
-
   async function handleDelete(surveyId) {
     try {
       await fetch(`/api/edit/${surveyId}`, {

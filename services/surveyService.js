@@ -9,11 +9,11 @@ export async function getSurveyById(id) {
       id: survey.id,
       title: survey.title,
       description: survey.description,
-      date: survey.date.toDateString(),
+      date: survey.date,
       url: survey.url,
-      questions: JSON.parse(JSON.stringify(survey.questions)),
+      questions: survey.questions,
     };
-    return sanitizedSurvey;
+    return JSON.parse(JSON.stringify(sanitizedSurvey));
   } catch (error) {
     console.error(error);
   }
@@ -27,7 +27,7 @@ export async function getAllSurveysByOwner(owner) {
       id: survey.id,
       title: survey.title,
       description: survey.description,
-      date: survey.date.toDateString(),
+      date: survey.date,
       url: survey.url,
       questions: survey.questions,
     }));
