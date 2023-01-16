@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useReducer, useEffect } from "react";
 import { useRouter } from "next/router";
 import styled from "styled-components";
 import DeleteButton from "./Buttons/DeleteButton";
@@ -6,9 +6,9 @@ import Preview from "./Preview";
 import { FiSave, FiPlusCircle } from "react-icons/fi";
 import { ImCancelCircle } from "react-icons/im";
 import { PrimaryButton } from "./Buttons/PrimaryButton";
-import { nanoid } from "nanoid";
 import PulseLoader from "react-spinners/PulseLoader";
 import Modal from "./Modal";
+import { formReducer } from "../lib/formReducer";
 
 export default function CreateSurveyForm({
   title,
@@ -20,72 +20,41 @@ export default function CreateSurveyForm({
   editMode,
 }) {
   const router = useRouter();
-  const [survey, setSurvey] = useState({
+
+  const INITIAL_STATE = {
     title: title,
     description: description,
-    date: new Date(),
+    date: date,
     url: url,
     questions: questions,
-  });
+  };
+  const [state, dispatch] = useReducer(formReducer, INITIAL_STATE);
+  // WIR HABEN JETZT EINEN 'state' !
+  // WIR HABEN JETZT AUCH EINE FUNKTION 'dispatch', DIE WIR BENUTZEN KÖNNEN !
   const [saveModal, setSaveModal] = useState(false);
   const [loading, setLoading] = useState(false);
+
   function startLoader() {
     setLoading(!loading);
   }
-
-  function handleChangeTitle(event) {
-    let newTitle = event.target.value;
-    if (newTitle.startsWith(" ")) {
-      newTitle = newTitle.replace(" ", "");
+  useEffect(() => {
+    console.log("Loading:", loading);
+  });
+  function validateString(string) {
+    if (string.startsWith(" ")) {
+      string = string.replace(" ", "");
     }
-    if (newTitle.includes("  ")) {
-      newTitle = newTitle.replace("  ", " ");
+    if (string.includes("  ")) {
+      string = string.replace("  ", " ");
     }
-    setSurvey({ ...survey, title: newTitle });
-  }
-  function handleChangeDescription(event) {
-    setSurvey({ ...survey, description: event.target.value });
+    return string;
   }
 
-  function handleChangeQuestion(index, event) {
-    let newQuestion = event.target.value;
-    if (newQuestion.startsWith(" ")) {
-      newQuestion = newQuestion.replace(" ", "");
-    }
-    if (newQuestion.includes("  ")) {
-      newQuestion = newQuestion.replace("  ", " ");
-    }
-    const newObj = { ...survey };
-    newObj.questions[index].title = newQuestion;
-    setSurvey(newObj);
-  }
-  function handleChangeType(index, event) {
-    const newObj = { ...survey };
-    newObj.questions[index].type = event.target.value;
-    setSurvey(newObj);
-  }
-  function handleAdd() {
-    const newQuestions = [...survey.questions];
-    newQuestions.push({
-      title: "",
-      type: "",
-      id: nanoid(),
-      answers: [],
-    });
-    const newSurvey = { ...survey, questions: newQuestions };
-    setSurvey(newSurvey);
-  }
-  function handleDelete(index) {
-    const newQuestions = [...survey.questions];
-    newQuestions.splice(index, 1);
-    const newSurvey = { ...survey, questions: newQuestions };
-    setSurvey(newSurvey);
-  }
-  function handleSubmit() {
-    onSubmit(survey);
+  function handleSubmit(event) {
+    onSubmit(state);
   }
   async function saveAsNew() {
-    const data = { ...survey };
+    const data = { ...state };
     data.date = new Date();
     data.questions.map((question) => (question.answers = []));
 
@@ -101,6 +70,14 @@ export default function CreateSurveyForm({
     }
   }
 
+  const handleChange = (e) => {
+    const string = validateString(e.target.value);
+    dispatch({
+      type: "CHANGE_INPUT",
+      payload: { name: e.target.name, value: string },
+    });
+  };
+ 
   return (
     <>
       {saveModal && (
@@ -123,8 +100,8 @@ export default function CreateSurveyForm({
             placeholder="your title"
             autoComplete="off"
             style={{ width: "100%" }}
-            value={survey.title}
-            onChange={handleChangeTitle}
+            value={state.title}
+            onChange={handleChange}
             onKeyPress={(e) => {
               // this prevents a submit when hitting Enter!
               e.key === "Enter" && e.preventDefault();
@@ -133,18 +110,19 @@ export default function CreateSurveyForm({
           <DescriptionInput
             type="text"
             rows="3"
+            required
             name="description"
             aria-label="description"
             placeholder="your description"
             autoComplete="off"
             style={{ width: "100%" }}
-            value={survey.description}
-            onChange={handleChangeDescription}
+            value={state.description}
+            onChange={handleChange}
             onKeyPress={(e) => {}}
           />
           <hr />
 
-          {survey.questions.map((question, index) => (
+          {state.questions.map((question, index) => (
             <QuestionWrapper key={question.id}>
               <QuestionInput
                 onKeyPress={(e) => {
@@ -159,14 +137,24 @@ export default function CreateSurveyForm({
                 autoComplete="off"
                 required
                 value={question.title}
-                onChange={(event) => handleChangeQuestion(index, event)}
+                onChange={(e) => {
+                  dispatch({
+                    type: "CHANGE_QUESTION_INPUT",
+                    payload: { value: e.target.value, index: index },
+                  });
+                }}
               />
               <select
                 name={`type-${index}`}
                 required
                 aria-label="type"
                 value={question.type}
-                onChange={(event) => handleChangeType(index, event)}
+                onChange={(e) => {
+                  dispatch({
+                    type: "CHANGE_SELECT",
+                    payload: { value: e.target.value, index: index },
+                  });
+                }}
               >
                 <option value="" disabled>
                   select
@@ -178,7 +166,10 @@ export default function CreateSurveyForm({
 
               <DeleteButton
                 onClick={() => {
-                  handleDelete(index);
+                  dispatch({
+                    type: "DELETE_QUESTION",
+                    payload: { index: index },
+                  });
                 }}
               />
               <Preview title={question.title} type={question.type} />
@@ -187,7 +178,9 @@ export default function CreateSurveyForm({
 
           <PrimaryButton
             type="button"
-            onClick={handleAdd}
+            onClick={() => {
+              dispatch({ type: "ADD_QUESTION" });
+            }}
             aria-label="add Question"
           >
             <FiPlusCircle />
@@ -196,6 +189,7 @@ export default function CreateSurveyForm({
           <hr />
           <PrimaryButton
             type="button"
+            
             onClick={editMode ? () => setSaveModal(true) : () => handleSubmit()}
           >
             <FiSave />
