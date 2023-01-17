@@ -4,7 +4,7 @@ const { Schema } = mongoose;
 
 const surveySchema = new Schema({
   owner: { type: String, required: true },
-  title: { type: String, required: true },
+  title: { type: String},
   description: { type: String },
   date: { type: Date },
   url: { type: String },
