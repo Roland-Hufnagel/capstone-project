@@ -20,7 +20,7 @@ export default function Home() {
   return (
     <div>
       <Head>
-        <title>Free Feedback Form</title>
+        <title>Free Feedback Form!</title>
         <meta name="description" content="Create your own surveys here" />
       </Head>
       <ImageContainer>
